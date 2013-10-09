@@ -15,7 +15,7 @@ server_settings = {
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Dubsit Online")
+        self.write("Hello :)")
 
 def main():
     tornado.options.parse_command_line()
