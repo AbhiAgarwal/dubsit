@@ -25,7 +25,7 @@ class Application(tornado.web.Application):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html")
+        self.render("fish.html")
 
 def main():
     tornado.options.parse_command_line()
