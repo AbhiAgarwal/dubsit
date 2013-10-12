@@ -8,7 +8,6 @@ import os.path
 from tornado.options import define, options
 
 define("port", default = 8000, help = "run on the given port", type = int)
-debug=True
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -31,6 +30,8 @@ def main():
     tornado.options.parse_command_line()
     app = Application()
     app.listen(options.port)
+    tornado.autoreload.add_reload_hook(main)
+    tornado.autoreload.start()
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
