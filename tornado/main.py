@@ -3,7 +3,7 @@ from tornado.options import define, options
 import tornado.web
 import logging
 
-define("port", default=8000, help="run on the given port", type=int)
+define("port", default = 8000, help = "run on the given port", type = int)
 
 settings = {
     "debug": True,
