@@ -13,3 +13,14 @@ Technology Stack
 - Tornado
 - MongoDB
 - Auto-Deploy (GitHub & Python)
+
+Using Github Auto Deploy
+=====
+
+- start the server by typing “python GitAutoDeploy.py”
+- to run it as a daemon add --daemon-mode
+
+Checking Ports
+=====
+
+- netstat -nlp
