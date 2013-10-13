@@ -190,23 +190,6 @@ class FacebookMixin(object):
                 pass
         return text
 
-class MainHandler(BaseHandler):
-    def get(self):
-        twitter_user = self.get_current_twitter_user()
-        facebook_user =self.get_current_facebook_user()
-        # print twitter_user
-        # print facebook_user
-        if twitter_user and TweetMixin.since_ids.get(twitter_user['id'], None):
-            TweetMixin.since_ids.pop(twitter_user['id'])
-        
-        if facebook_user:
-            if FacebookMixin.since_ids.get(facebook_user['uid'], None):
-                FacebookMixin.since_ids.pop(facebook_user['uid'])
-
-        self.render('index.html', 
-                    twitter_user=twitter_user,
-                    facebook_user=facebook_user)
-
 class TwitterTimelineHandler(BaseHandler, TweetMixin, tornado.auth.TwitterMixin):
     # @tornado.web.authenticated
     @tornado.web.asynchronous
