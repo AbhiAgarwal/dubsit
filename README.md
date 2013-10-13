@@ -17,9 +17,12 @@ Technology Stack
 Starting Tornado
 =====
 
+- python main.py --port=8000
+- python main.py --port=8001
+- python main.py --port=8002
+- python main.py --port=8003
 
-
-Using Github Auto Deploy
+Using Github Auto Deploy (Runs on port 8005)
 =====
 
 - start the server by typing “python GitAutoDeploy.py”
