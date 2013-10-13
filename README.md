@@ -14,6 +14,11 @@ Technology Stack
 - MongoDB
 - Auto-Deploy (GitHub & Python)
 
+Starting Tornado
+=====
+
+
+
 Using Github Auto Deploy
 =====
 
@@ -24,3 +29,9 @@ Checking Ports
 =====
 
 - netstat -nlp
+- /etc/init.d/nginx reload
+- /etc/init.d/nginx start
+
+or 
+
+- service nginx restart
