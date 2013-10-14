@@ -5,6 +5,7 @@ install_requires = []
 install_requires.append('tornado')
 install_requires.append('praw')
 # pip install requests giphypop
+# pip install -e git+https://github.com/shaunduncan/giphypop.git#egg=giphypop
 install_requires.append('requests')
 install_requires.append('giphypop')
 
