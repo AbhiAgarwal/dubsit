@@ -7,13 +7,14 @@ import tornado.websocket
 import os.path
 from tornado.options import define, options
 from networks import reddit, giphy
+import unicodedata
 
 define("port", default = 8000, help = "run on the given port", type = int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
-            (r"/apisource/giphyImage.json", GiphyHandler),
+            (r"/apisource/giphyImage.json/([^/]+)", GiphyHandler),
             (r"/apisource/redditImage.json", RedditHandler),
         ]
         settings = dict(
@@ -24,17 +25,32 @@ class Application(tornado.web.Application):
         )
         tornado.web.Application.__init__(self, handlers, **settings)
 
-def getImage():
-    redditImage, giphyImage = reddit.reddit(), giphy.giphy()
-    #redditImage.getImage("test")
-    giphyImage.getImage("Pokemon")
-
 class GiphyHandler(tornado.web.RequestHandler):
-    def get(self):
+    def get(self, searchQuery):
+        # Querying search
+        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+        splitArray = query.split()
+        query = " ".join(splitArray)
+        # Starting Giphy Optimization
         giphyImage = giphy.giphy()
-        data = giphyImage.getImage("Pokemon")
+        data = giphyImage.getImage(query)
         self.set_header('Content-Type', 'text/javascript')
         self.write(tornado.escape.json_encode(data))
+    def post(self):
+        giphyImage = giphy.giphy()
+        searchQuery = self.get_argument('search', '')
+        data = giphyImage.getImage(searchQuery)
+        if searchQuery:
+            login_response = {
+                'error': False, 
+                'msg': data
+            }
+        else:
+            login_response = {
+                'error': True, 
+                'msg': 'Please enter a Search Query'
+            }
+        self.write(login_response)
 
 class RedditHandler(tornado.web.RequestHandler):
     def get(self):
