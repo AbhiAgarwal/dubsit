@@ -1,14 +1,14 @@
 class imageModel(object):
 	
-	def __init__(self, imageID, url, height, width):
-		self.imageID = imageID
-		self.url = url
-		self.height = height
-		self.width = width
+	def __init__(self, result, originalImage):
+		self.id = result.id
+		self.url = result.url
+		self.height = result.height
+		self.width = result.width
 		
 	def getImageList(self):
 		dictionary = {}
-		dictionary['id'] = self.imageID
+		dictionary['id'] = self.id
 		dictionary['url'] = self.url
 		dictionary['height'] = self.height
 		dictionary['width'] = self.width
