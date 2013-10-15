@@ -15,5 +15,3 @@ class reddit(object):
 
 	def getImage(self, stringQuery):
 		subreddit = r.get_subreddit('askhistorians')
-		print subreddit
-		print stringQuery

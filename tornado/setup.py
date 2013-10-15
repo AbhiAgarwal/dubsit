@@ -8,6 +8,7 @@ install_requires.append('praw')
 # pip install -e git+https://github.com/shaunduncan/giphypop.git#egg=giphypop
 install_requires.append('requests')
 install_requires.append('giphypop')
+install_requires.append('pytumblr')
 
 README_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README')
 description = 'Attempt to learn about Search Engines & their user base.'

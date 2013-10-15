@@ -1,27 +1,36 @@
 from giphypop import Giphy
+from networks import imageModel
 import json
 
 class giphy(object):
 
 	allResults = []
 	currentResult = []
-	APIKey = "dc6zaTOxFJmzC"
 
 	def __init__(self):
 		allResults = []
 		currentResult = []
 
 	# this physically gets the image from the server
-	def getImage(self, stringQuery):
+	def getImage(self, stringQuery, wholeOrimageModel):
 		currentResult = [x for x in Giphy().search(stringQuery)]
 		self.currentResult = currentResult
 		self.allResults.append(currentResult)
 		returnList = []
-		for i in range(0, len(currentResult)):
-			dictionary = self.processImage(currentResult[i])
-			returnList.append(dictionary)
-		return returnList
+		if wholeOrimageModel == 'whole':
+			for i in range(0, len(currentResult)):
+				dictionary = self.processImage(currentResult[i])
+				returnList.append(dictionary)
+			return returnList
+		elif wholeOrimageModel == 'model':
+			for i in range(0, len(currentResult)):
+				dictionary = self.processModel(currentResult[i])
+				returnList.append(dictionary)
+			return returnList
 
+	def processModel(self, result):
+		image = imageModel.imageModel(result.id, result.url, result.height, result.width)
+		return (image.getImageList())
 	# everything is stored as a giphy object, this is to try to get all the
 	# values out before parsing it into the engine
 	def processImage(self, result):
