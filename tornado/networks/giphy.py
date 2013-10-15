@@ -3,14 +3,9 @@ from models import imageModel, giphyModel
 import json
 
 class giphy(object):
-
-	allResults = []
-	currentResult = []
-
 	def __init__(self):
-		allResults = []
-		currentResult = []
-
+		self.allResults = []
+		self.currentResult = []
 	# this physically gets the image from the server
 	def getImage(self, stringQuery, wholeOrimageModel):
 		currentResult = [x for x in Giphy().search(stringQuery)]
@@ -25,7 +20,8 @@ class giphy(object):
 				dictionary = self.processModel(currentResult[i])
 				returnList.append(dictionary)
 		return returnList
-
+	# processes according to the image object, this is to try get all the values
+	# of every image in accordance with all the social networks
 	def processModel(self, result):
 		image = imageModel.imageModel(result)
 		return image.getImageList()

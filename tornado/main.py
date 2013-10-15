@@ -10,6 +10,9 @@ from tornado.options import define, options
 from networks import reddit, giphy, tumblr
 import unicodedata
 
+# Whole -> Raw data of all the images given by Social Network on that topic
+# Model -> Sorted data of all the images given by the different social networks according to our pre-defined Model
+
 define("port", default = 8000, help = "run on the given port", type = int)
 class Application(tornado.web.Application):
     def __init__(self):
@@ -28,6 +31,7 @@ class Application(tornado.web.Application):
         )
         tornado.web.Application.__init__(self, handlers, **settings)
 
+# Handles the 'whole' and 'model' Giphy API requests
 class GiphyAPIHandler(tornado.web.RequestHandler):
     def get(self, param1, param2):
         modelOrWhole = param1
