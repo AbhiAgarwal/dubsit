@@ -1,5 +1,5 @@
 from giphypop import Giphy
-from models import imageModel, giphyModel
+from imageModels import imageModel, giphyModel
 import json
 
 class giphy(object):

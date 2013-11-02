@@ -18,7 +18,7 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
-            (r"/api/giphy.json/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?", GiphyAPIHandler),
+            (r"/api/giphy/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", GiphyAPIHandler),
             (r"/api/redditImage.json", RedditWholeHandler),
             (r"/api/reddit.json", RedditWholeHandler),
             (r"/api/tumblrImage", TumblrWholeHandler),

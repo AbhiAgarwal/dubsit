@@ -1,6 +1,6 @@
 class imageModel(object):
 	
-	def __init__(self, result, originalImage):
+	def __init__(self, result):
 		self.id = result.id
 		self.url = result.url
 		self.height = result.height
