@@ -46,7 +46,7 @@
           }
           // 'image'
           if($.inArray(categories[1], search) == 0){
-            console.log('web');
+            console.log('image');
           }
           // 'gif'
           if($.inArray(categories[2], search) == 0){
@@ -101,7 +101,7 @@
       }
       // Supposed to find the Tag (Autocomplete)
       function onChange(tag){
-        var languages = ['php','ruby','javascript'];
+        var languages = ['gif','image','web'];
         $('.tag', tag).each(function(){
           if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
            $(this).css('background-color', 'yellow');
