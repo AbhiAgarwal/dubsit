@@ -15,7 +15,7 @@
           <li>
             <form role="form">
               <div class="form-group">
-                <input class="tags" type="text" id="tags_1" value="gif" placeholder="Search">
+                <input class="tags" type="text" id="tags_1" value="gif:" placeholder="Search">
               </div>
             </form>
           </li>
@@ -34,69 +34,49 @@
     <script src="{{ static_url("js/app.js") }}" type="text/javascript"></script>
     <script type="text/javascript">
       var search = []; // Search Array
-      var categories = ['web', 'image', 'gif'];
-      search.push('gif'); // If image: is default search
+      search.push('gif:'); // If image: is default search
       // Analysis of either image, web or gif etc:
       function analysis(tag){
-        if($.inArray(tag, categories) == 0){console.log(tag);}
-        else{
-          // 'web'
-          if($.inArray(categories[0], search) == 0){
-            console.log('web');
-          }
-          // 'image'
-          if($.inArray(categories[1], search) == 0){
-            console.log('web');
-          }
-          // 'gif'
-          if($.inArray(categories[2], search) == 0){
-            $('#results').append('<section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
-            $.getJSON( "api/giphy/whole/" + tag + ".json", function(data){
-              if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
-              $.each(data, function(i, field){
-                var html_img = '<li>';
-                html_img += '<img data-original="' + field.media_url + '" src="' + field.media_url + '" width="240" height="150" />'
-                html_img += '</li>'
-                $("#" + tag).append(html_img);
-              });
+        if($.inArray('web:', search) == 0)
+        {
+          console.log('web');
+        }
+        if($.inArray('gif:', search) == 0)
+        {
+          $('#results').append('<section><ul id=' + tag + '><div id=' + tag + '><h2>' + tag + '</h2></div>');
+          $.getJSON( "api/giphy/whole/" + tag + ".json", function(data){
+            $.each(data, function(i, field){
+              var html_img = '<li>';
+              html_img += '<img data-original="' + field.media_url + '" src="' + field.media_url + '" width="240" height="150" />'
+              html_img += '</li>'
+              $("#" + tag).append(html_img); 
             });
-            $('#results').append('</ul></section>');
-            $("#" + tag).least();
-            $("#h2" + tag).click(function(){
-              $("#" + tag).toggle();
-            });
-          }
+          });
+          $('#results').append('</ul></section>');
+          $("#" + tag).least();
+          $("#" + tag).click(function(){
+            $("#" + tag).hide();
+          });
         }
       }
       // Adds Tag to Search
       function onAddTag(tag) {
         if(typeof(tag) != 'undefined'){
-          if($.inArray(tag, categories) != 0){
-            search.push(tag);
-          }
+          search.push(tag);
           analysis(tag);
         }
       }
       // Remove Tag from Array
       function onRemoveTag(tag) {
         var index = search.indexOf(tag);
-        if (search.length == 0){ 
-          search = [];
-          $('#results').remove(); 
-          $('#h2' + tag).remove();
-          $('#id' + tag).remove();
-          $('#' + tag).remove();
-        }
         if (search.length == 1){ 
-          $('#h2' + tag).remove();
-          $('#id' + tag).remove();
-          $('#' + tag).remove();
+          search = [];
+          $('#results').html(''); 
         }
         else if (index > -1) { 
-          $('#h2' + tag).remove();
-          $('#id' + tag).remove();
-          $('#' + tag).remove();
+          analysis(search[search.length - 1]);
           search.splice(index, 1);
+          $('#' + tag).html(''); 
         }
       }
       // Supposed to find the Tag (Autocomplete)

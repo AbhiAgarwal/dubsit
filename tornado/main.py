@@ -55,39 +55,6 @@ class GiphyAPIHandler(tornado.web.RequestHandler):
             data = giphyImage.getImage(query, 'whole')
             self.set_header('Content-Type', 'text/javascript')
             self.write(tornado.escape.json_encode(data))
-    def post(self, param1, param2):
-        modelOrWhole = param1
-        searchQuery = param2
-        if modelOrWhole == 'model':
-            giphyImage = giphy.giphy()
-            searchQuery = self.get_argument('search', '')
-            data = giphyImage.getImage(searchQuery, 'whole')
-            if searchQuery:
-                login_response = {
-                    'error': False, 
-                    'msg': data
-                }
-            else:
-                login_response = {
-                    'error': True, 
-                    'msg': 'Please enter a Search Query'
-                }
-            self.write(login_response)
-        else:
-            giphyImage = giphy.giphy()
-            searchQuery = self.get_argument('search', '')
-            data = giphyImage.getImage(searchQuery, 'whole')
-            if searchQuery:
-                login_response = {
-                    'error': False, 
-                    'msg': data
-                }
-            else:
-                login_response = {
-                    'error': True, 
-                    'msg': 'Please enter a Search Query'
-                }
-            self.write(login_response)
 
 class RedditWholeHandler(tornado.web.RequestHandler):
     def get(self):
