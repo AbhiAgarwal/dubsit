@@ -6,22 +6,18 @@ import tornado.web
 import tornado.websocket
 import os.path
 from tornado.options import define, options
-# non tornado
 from networks import reddit, giphy, tumblr
+from networks.gif_handlers import GiphyAPIHandler, RedditWholeHandler, TumblrWholeHandler
 import unicodedata
-
-# Whole -> Raw data of all the images given by Social Network on that topic
-# Model -> Sorted data of all the images given by the different social networks according to our pre-defined Model
 
 define("port", default = 8000, help = "run on the given port", type = int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
-            (r"/api/giphy/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", GiphyAPIHandler),
-            (r"/api/redditImage.json", RedditWholeHandler),
-            (r"/api/reddit.json", RedditWholeHandler),
-            (r"/api/tumblrImage", TumblrWholeHandler),
+            (r"/api/gif/giphy/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", GiphyAPIHandler),
+            (r"/api/image/reddit.json", RedditWholeHandler),
+            (r"/api/image/tumblr.json", TumblrWholeHandler),
         ]
         settings = dict(
             cookie_secret = " 8SGUe0QKS/ecvBl5WSYLw36RuNPtqEenqkIlAD0BoSY=",
@@ -30,44 +26,6 @@ class Application(tornado.web.Application):
             xsrf_cookies = True,
         )
         tornado.web.Application.__init__(self, handlers, **settings)
-
-# Handles the 'whole' and 'model' Giphy API requests
-class GiphyAPIHandler(tornado.web.RequestHandler):
-    def get(self, param1, param2):
-        modelOrWhole = param1
-        searchQuery = param2
-        if modelOrWhole == 'model':
-            # Querying search
-            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-            splitArray = query.split()
-            query = " ".join(splitArray)
-            # Starting Giphy Optimization
-            giphyImage = giphy.giphy()
-            data = giphyImage.getImage(query, 'model')
-            self.set_header('Content-Type', 'text/javascript')
-            self.write(tornado.escape.json_encode(data))
-        else:
-            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-            splitArray = query.split()
-            query = " ".join(splitArray)
-            # Starting Giphy Optimization
-            giphyImage = giphy.giphy()
-            data = giphyImage.getImage(query, 'whole')
-            self.set_header('Content-Type', 'text/javascript')
-            self.write(tornado.escape.json_encode(data))
-
-class RedditWholeHandler(tornado.web.RequestHandler):
-    def get(self):
-        redditImage = reddit.reddit(),
-        data = redditImage.getImage("test")
-        self.set_header('Content-Type', 'text/javascript')
-        self.write(tornado.escape.json_encode(data))
-
-class TumblrWholeHandler(tornado.web.RequestHandler):
-    def get(self):
-        tumblrImage = tumblr.tumblr()
-        tumblrImage.getImage()
-        self.render("index.html")
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
