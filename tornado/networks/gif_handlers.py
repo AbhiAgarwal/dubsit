@@ -43,14 +43,30 @@ class GiphyAPIHandler(tornado.web.RequestHandler):
             self.write(tornado.escape.json_encode(data))
 
 class RedditWholeHandler(tornado.web.RequestHandler):
-    def get(self):
-        redditImage = reddit.reddit(),
-        data = redditImage.getImage("test")
-        self.set_header('Content-Type', 'text/javascript')
-        self.write(tornado.escape.json_encode(data))
+    def get(self, param1, param2):
+        modelOrWhole = param1
+        searchQuery = param2
+        if modelOrWhole == 'model':
+            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+            splitArray = query.split()
+            query = " ".join(splitArray)
+            # Starting REddit Optimization
+            redditImage = reddit.reddit()
+            data = redditImage.getImage(param2, 'model')
+            self.set_header('Content-Type', 'text/javascript')
+            self.write(tornado.escape.json_encode(data))
+        else:
+            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+            splitArray = query.split()
+            query = " ".join(splitArray)
+            # Starting REddit Optimization
+            redditImage = reddit.reddit()
+            data = redditImage.getImage(param2, 'whole')
+            self.set_header('Content-Type', 'text/javascript')
+            self.write(tornado.escape.json_encode(data))
 
 class TumblrWholeHandler(tornado.web.RequestHandler):
-    def get(self):
+    def get(self, param1, param2):
         tumblrImage = tumblr.tumblr()
         tumblrImage.getImage()
-        self.render("index.html")
+        self.write(tornado.escape.json_encode({}))

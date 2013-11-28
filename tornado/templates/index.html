@@ -12,18 +12,15 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="navbar-header"><a class="navbar-brand">Dubsit</a></div>
         <ul class="nav">
-          <li>
             <form role="form">
               <div class="form-group">
                 <input class="tags" type="text" id="tags_1" value="gif" placeholder="Search">
               </div>
             </form>
-          </li>
         </ul>
     </div>
-    <br>
-      <div class="starter-template"></div>
-      <div id="results"></div>
+    <br><br>
+    <div id="results"></div>
     <script src="{{ static_url("js/jquery-2.0.3.min.js") }}" type="text/javascript"></script>
     <script src="{{ static_url("js/jquery.tagsinput.js") }}"></script>
     <script src="{{ static_url("js/bootstrap.min.js") }}" type="text/javascript"></script>
@@ -49,7 +46,7 @@
           // 'gif'
           if($.inArray(categories[2], search) != -1){
             $('#results').append('<div id="gif_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
-            $.getJSON( "api/gif/giphy/whole/" + tag + ".json", function(data){
+            $.getJSON( "api/gif/giphy/model/" + tag + ".json", function(data){
               if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
               $.each(data, function(i, field){
                 var html_img = '<li>';

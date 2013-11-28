@@ -8,6 +8,7 @@ import os.path
 from tornado.options import define, options
 from networks import reddit, giphy, tumblr
 from networks.gif_handlers import GiphyAPIHandler, RedditWholeHandler, TumblrWholeHandler
+from rank.dubrank import GIFRankHandler
 import unicodedata
 
 define("port", default = 8000, help = "run on the given port", type = int)
@@ -16,8 +17,9 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", MainHandler),
             (r"/api/gif/giphy/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", GiphyAPIHandler),
-            (r"/api/image/reddit.json", RedditWholeHandler),
-            (r"/api/image/tumblr.json", TumblrWholeHandler),
+            (r"/api/gif/reddit/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", RedditWholeHandler),
+            (r"/api/gif/tumblr/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", TumblrWholeHandler),
+            (r"/api/gif/rank/(?P<param1>[^\/]+)?.json", GIFRankHandler),
         ]
         settings = dict(
             cookie_secret = " 8SGUe0QKS/ecvBl5WSYLw36RuNPtqEenqkIlAD0BoSY=",
