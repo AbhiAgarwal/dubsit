@@ -6,6 +6,7 @@ class redditModel(object):
 		self.num_comments = result.get('num_comments')
 		self.ups = result.get('ups')
 		self.downs = result.get('downs')
+		self.media_url = result.get('url')
 
 	def getImageList(self):
 		dictionary = {}
@@ -14,4 +15,5 @@ class redditModel(object):
 		dictionary['num_comments'] = self.num_comments
 		dictionary['ups'] = self.ups
 		dictionary['downs'] = self.downs
+		dictionary['media_url'] = self.media_url
 		return dictionary

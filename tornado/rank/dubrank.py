@@ -11,5 +11,10 @@ import unicodedata
 
 class GIFRankHandler(tornado.web.RequestHandler):
     def get(self, param1):
-    	results = GiphyAPI('model', param1)
-        self.write(tornado.escape.json_encode(results))
+    	GiphyResults = GiphyAPI('model', param1)
+    	RedditResults = RedditAPI('model', param1)
+    	TotalResults = rank(GiphyResults, RedditResults)
+        self.write(tornado.escape.json_encode(TotalResults))
+
+def rank(GiphyResults, RedditResults):
+	return RedditResults + GiphyResults
