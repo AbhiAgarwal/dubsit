@@ -6,8 +6,6 @@ import tornado.web
 import tornado.websocket
 import os.path
 from tornado.options import define, options
-from networks import reddit, giphy, tumblr
-from networks.gif_handlers import GiphyAPIHandler, RedditWholeHandler, TumblrWholeHandler
 from rank.dubrank import GIFRankHandler
 import unicodedata
 
@@ -16,13 +14,10 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
-            (r"/api/gif/giphy/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", GiphyAPIHandler),
-            (r"/api/gif/reddit/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", RedditWholeHandler),
-            (r"/api/gif/tumblr/(?P<param1>[^\/]+)/?(?P<param2>[^\/]+)?.json", TumblrWholeHandler),
             (r"/api/gif/rank/(?P<param1>[^\/]+)?.json", GIFRankHandler),
         ]
         settings = dict(
-            cookie_secret = " 8SGUe0QKS/ecvBl5WSYLw36RuNPtqEenqkIlAD0BoSY=",
+            cookie_secret = "8SGUe0QKS/ecvBl5WSYLw36RuNPtqEenqkIlAD0BoSY=",
             template_path = os.path.join(os.path.dirname(__file__), "templates"),
             static_path = os.path.join(os.path.dirname(__file__), "static"),
             xsrf_cookies = True,

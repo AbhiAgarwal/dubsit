@@ -12,28 +12,8 @@ class giphyModel(object):
 		self.frames = result.frames
 		self.height = result.height
 		self.width = result.width
-		# variable width @ 200px height
 		self.fixed_height = result.fixed_height
-		# - self.fixed_height_url = result.fixed_height.url
-		# - self.fixed_height_width = result.fixed_height.width
-		# - self.fixed_height_height = result.fixed_height.height
-		# - self.fixed_height_downsampled.url = result.fixed_height.downsampled.url
-		# - self.fixed_height_downsampled.width = result.fixed_height.downsampled.width
-		# - self.fixed_height_downsampled.height = result.fixed_height.downsampled.height
-		# - self.fixed_height_still.url = result.fixed_height.still.url
-		# - self.fixed_height_still.width = result.fixed_height.still.width
-		# - self.fixed_height_still.height = result.fixed_height.still.height
-		# variable height @ 200px width
 		self.fixed_width = result.fixed_width
-		# - self.fixed_width.url = result.fixed_width.url
-		# - self.fixed_width.width = result.fixed_width.width
-		# - self.fixed_width.height = result.fixed_width.height
-		# - self.fixed_width.downsampled.url = result.fixed_width.downsampled.url
-		# - self.fixed_width.downsampled.width = result.fixed_width.downsampled.width
-		# - self.fixed_width.downsampled.height = result.fixed_width.downsampled.height
-		# - self.fixed_width.still.url = result.fixed_width.still.url
-		# - self.fixed_width.still.width = result.fixed_width.still.width
-		# - self.fixed_width.still.height = result.fixed_width.still.height
 
 	def getImageList(self):
 		dictionary = {}

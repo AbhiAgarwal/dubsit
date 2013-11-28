@@ -18,55 +18,48 @@ import unicodedata
 # Param1: either querying a model or the whole unparsed data, ie: 'Whole'
 # Param2: the actual name of the request, ie: 'Pokemon'
 # @Return: JSON from Giphy parsed either 'model' or 'whole' way.
-class GiphyAPIHandler(tornado.web.RequestHandler):
-    def get(self, param1, param2):
-        modelOrWhole = param1
-        searchQuery = param2
-        if modelOrWhole == 'model':
-            # Querying search
-            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-            splitArray = query.split()
-            query = " ".join(splitArray)
-            # Starting Giphy Optimization
-            giphyImage = giphy.giphy()
-            data = giphyImage.getImage(query, 'model')
-            self.set_header('Content-Type', 'text/javascript')
-            self.write(tornado.escape.json_encode(data))
-        else:
-            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-            splitArray = query.split()
-            query = " ".join(splitArray)
-            # Starting Giphy Optimization
-            giphyImage = giphy.giphy()
-            data = giphyImage.getImage(query, 'whole')
-            self.set_header('Content-Type', 'text/javascript')
-            self.write(tornado.escape.json_encode(data))
+def GiphyAPI(param1, param2):
+    modelOrWhole = param1
+    searchQuery = param2
+    if modelOrWhole == 'model':
+        # Querying search
+        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+        splitArray = query.split()
+        query = " ".join(splitArray)
+        # Starting Giphy Optimization
+        giphyImage = giphy.giphy()
+        data = giphyImage.getImage(query, 'model')
+        return data
+    else:
+        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+        splitArray = query.split()
+        query = " ".join(splitArray)
+        # Starting Giphy Optimization
+        giphyImage = giphy.giphy()
+        data = giphyImage.getImage(query, 'whole')
+        return data
 
-class RedditWholeHandler(tornado.web.RequestHandler):
-    def get(self, param1, param2):
-        modelOrWhole = param1
-        searchQuery = param2
-        if modelOrWhole == 'model':
-            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-            splitArray = query.split()
-            query = " ".join(splitArray)
-            # Starting REddit Optimization
-            redditImage = reddit.reddit()
-            data = redditImage.getImage(param2, 'model')
-            self.set_header('Content-Type', 'text/javascript')
-            self.write(tornado.escape.json_encode(data))
-        else:
-            query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-            splitArray = query.split()
-            query = " ".join(splitArray)
-            # Starting REddit Optimization
-            redditImage = reddit.reddit()
-            data = redditImage.getImage(param2, 'whole')
-            self.set_header('Content-Type', 'text/javascript')
-            self.write(tornado.escape.json_encode(data))
+def RedditAPI(param1, param2):
+    modelOrWhole = param1
+    searchQuery = param2
+    if modelOrWhole == 'model':
+        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+        splitArray = query.split()
+        query = " ".join(splitArray)
+        # Starting REddit Optimization
+        redditImage = reddit.reddit()
+        data = redditImage.getImage(param2, 'model')
+        return data
+    else:
+        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
+        splitArray = query.split()
+        query = " ".join(splitArray)
+        # Starting REddit Optimization
+        redditImage = reddit.reddit()
+        data = redditImage.getImage(param2, 'whole')
+        return data
 
-class TumblrWholeHandler(tornado.web.RequestHandler):
-    def get(self, param1, param2):
-        tumblrImage = tumblr.tumblr()
-        tumblrImage.getImage()
-        self.write(tornado.escape.json_encode({}))
+def TumblrAPI(param1, param2):
+    tumblrImage = tumblr.tumblr()
+    tumblrImage.getImage()
+    return {}
