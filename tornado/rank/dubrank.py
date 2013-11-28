@@ -17,4 +17,4 @@ class GIFRankHandler(tornado.web.RequestHandler):
         self.write(tornado.escape.json_encode(TotalResults))
 
 def rank(GiphyResults, RedditResults):
-	return RedditResults + GiphyResults
+	return GiphyResults + RedditResults 
