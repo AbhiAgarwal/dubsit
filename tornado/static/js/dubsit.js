@@ -1,11 +1,19 @@
 var search = []; // Search Array
 var categories = ['web', 'image', 'gif', 'news'];
+var prevType = "";
 
 $(document).ready(function(){
   if(search.length > 1){
     analysis(search[1]);
   }
 });
+
+function addType(tag) {
+  History.pushState({state: tag}, "Dubsit", ("?type=" + tag));
+}
+function addSearch(tag) {
+  History.pushState({state: tag}, "Dubsit", ("?type=" + prevType + "&search=" + tag));
+}
 
 // Analysis of either image, web or gif etc:
 function analysis(tag){
@@ -21,6 +29,7 @@ function analysis(tag){
     }
     // 'gif'
     if($.inArray(categories[2], search) != -1){
+      // appending results
       $('#results').append('<div id="gif_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
       $.getJSON( "api/gif/rank/" + tag + ".json", function(data){
         if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
@@ -72,14 +81,18 @@ function onAddTag(tag){
   if(typeof(tag) != 'undefined'){
     search.push(tag);
     if($.inArray(tag, categories) == -1){
+      addSearch(tag);
       analysis(tag); 
+    } else {
+      addType(tag);
+      prevType = tag;
     }
   }
-  
 }
 
 // Remove Tag from Array
 function onRemoveTag(tag) {
+  History.pushState({state: tag}, "Dubsit", ("?type=" + prevType));
   var index = search.indexOf(tag);
   if (search.length == 0){ 
     search = [];
@@ -90,6 +103,8 @@ function onRemoveTag(tag) {
   }
   if (search.length == 1){ 
     search = [];
+    History.pushState({state: tag}, "Dubsit", "?");
+    prevType = ""
     $('#h2' + tag).remove();
     $('#id' + tag).remove();
     $('#' + tag).remove();
