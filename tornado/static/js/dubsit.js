@@ -1,6 +1,7 @@
 var search = []; // Search Array
 var categories = ['web', 'image', 'gif', 'news'];
 var prevType = "";
+var urlsVisited = [];
 
 $(document).ready(function(){
   if(search.length > 1){
@@ -35,14 +36,20 @@ function analysis(tag){
         if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
         else{
           $.each(data, function(i, field){
+            // checking if duplicate
+            var splitData = ((field.media_url).split(".com"))[1];
             // to check if image exists
-            $("<img src=" + field.media_url +  ">").load(function(){
-              // if exists then adds it to the GIF layer :)
-              var html_img = '<li>';
-              html_img += '<img data-original="' + field.media_url + '" src="' + field.media_url + '" width="240" height="150" />'
-              html_img += '</li>'
-              $("#" + tag).append(html_img);
-            });
+            if(!($.inArray(splitData, urlsVisited) != -1)){
+              $("<img src=" + field.media_url +  ">").load(function(){
+                // if exists then adds it to the GIF layer :)
+                // now we need to check if the GIF has already been added
+                  var html_img = '<li>';
+                  html_img += '<img data-original="' + field.media_url + '" src="' + field.media_url + '" width="240" height="150" />'
+                  html_img += '</li>'
+                  $("#" + tag).append(html_img);
+              });
+            }
+            urlsVisited.push(splitData);
           });
         }
       });
