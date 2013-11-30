@@ -10,7 +10,7 @@ from tornado.options import define, options
 from rank.dubrank import GIFRankHandler, NEWSRankHandler
 import unicodedata
 
-#newrelic.agent.initialize('newrelic.ini')
+newrelic.agent.initialize('newrelic.ini')
 define("port", default = 8000, help = "run on the given port", type = int)
 class Application(tornado.web.Application):
     def __init__(self):
