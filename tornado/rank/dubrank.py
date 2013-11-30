@@ -5,9 +5,10 @@ import tornado.options
 import tornado.web
 import tornado.websocket
 import os.path
-from tornado.options import define, options
-from operator import itemgetter
 import unicodedata, sys, json
+from math import log
+from operator import itemgetter
+from tornado.options import define, options
 from networks.gif_handlers import GiphyGIFAPI, RedditGIFAPI, TumblrGIFAPI
 from networks.news_handlers import RedditNEWSAPI
 
@@ -18,6 +19,7 @@ def normalize(param1):
     return query
 
 class GIFRankHandler(tornado.web.RequestHandler):
+
     def get(self, param1):
     	# Querying search
         query = normalize(param1)
@@ -27,12 +29,44 @@ class GIFRankHandler(tornado.web.RequestHandler):
     	TotalResults = self.GIFRank(GiphyResults, RedditResults)
         self.write(tornado.escape.json_encode(TotalResults))
 
+    def score(self, ups, downs, comments):
+        s = (ups - downs) + comments
+        order = log(max(abs(s), 1), 10)
+        return order
+
     def GIFRank(self, GiphyResults, RedditResults):
-        finalSource = [];
+        weighing = {'reddit': 0.8, 'giphy': 1.0}
+        finalSource = []; # array to return
+        average = 0 # average scoring
+
+        # parse through Reddit Results
+        for i in RedditResults:
+
+            # score reddit
+            i['score'] = self.score(i['ups'], i['downs'], i['num_comments'])
+
+            # reddit weighting = 0.8
+            i['score'] = i['score'] * weighing['reddit']
+
+            # keep average
+            average += i['score']
+
+            # delete source private details
+            del i['source'], i['id'], i['ups'], i['downs'], i['num_comments'], i['url']
+
+            # append the result
+            finalSource.append(i)
+
+        average = (average/(len(RedditResults)))
 
         # parse through Giphy Results
         for i in GiphyResults:
-            i['score'] = 0.7
+
+            # scoring as average
+            i['score'] = average
+
+            # Giphy weighting = 1.0
+            i['score'] = i['score'] * weighing['giphy']
 
             # delete source element
             del i['source']
@@ -40,23 +74,11 @@ class GIFRankHandler(tornado.web.RequestHandler):
             del i['url']
             del i['height']
             del i['width']
-            # append the result
-            finalSource.append(i)
 
-        # parse through Reddit Results
-        for i in RedditResults:
-            i['score'] = 1
-
-            # delete source private details
-            del i['source']
-            del i['id']
-            del i['ups']
-            del i['downs']
-            del i['num_comments']
-            del i['url']
             # append the result
             finalSource.append(i)   
 
+        # sort the final source before saving as JSON
         finalSource = (sorted(finalSource,key=itemgetter('score')))[::-1]
 
         # return the source to be shown
