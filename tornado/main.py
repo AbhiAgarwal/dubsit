@@ -6,7 +6,7 @@ import tornado.web
 import tornado.websocket
 import os.path
 from tornado.options import define, options
-from rank.dubrank import GIFRankHandler
+from rank.dubrank import GIFRankHandler, NEWSRankHandler
 import unicodedata
 
 define("port", default = 8000, help = "run on the given port", type = int)
@@ -15,6 +15,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", MainHandler),
             (r"/api/gif/rank/(?P<param1>[^\/]+)?.json", GIFRankHandler),
+            (r"/api/news/rank/(?P<param1>[^\/]+)?.json", NEWSRankHandler),
         ]
         settings = dict(
             cookie_secret = "8SGUe0QKS/ecvBl5WSYLw36RuNPtqEenqkIlAD0BoSY=",

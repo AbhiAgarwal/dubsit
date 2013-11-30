@@ -1,5 +1,5 @@
 from giphypop import Giphy
-from imageModels import giphyModel, imageModel
+from imageModels import gif_giphyModel
 import json
 
 class giphy(object):
@@ -22,5 +22,5 @@ class giphy(object):
 	# processes according to the giphy model object, this is to try get all the values
 	# of every image in accordance with all the social networks
 	def processModel(self, result):
-		image = imageModel.imageModel(result)
+		image = gif_giphyModel.imageModel(result)
 		return image.getImageList()

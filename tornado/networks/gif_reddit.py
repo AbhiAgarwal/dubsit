@@ -1,16 +1,17 @@
 import json, requests, sys
-from imageModels import redditModel
+from imageModels import gif_redditModel
 
 class reddit(object):
 	
 	def __init__(self):
 		self.allResults = []
 		self.currentResult = []
-		self.getGIFSubreddit = 'http://www.reddit.com/r/gifs/search.json?q={}&sort=new&restrict_sr=true'
-	
+		self.getGIFSubreddit = 'http://www.reddit.com/r/{}/search.json?q={}&sort=new&restrict_sr=true'
+		self.setSubreddits = ['gifs', 'perfectloops']
+
 	# this physically gets the image from the server
-	def getImage(self, stringQuery, wholeOrimageModel):
-		requestGIFSubreddit = requests.get(self.getGIFSubreddit.format(stringQuery))
+	def getSubImage(self, wholeOrimageModel, URL):
+		requestGIFSubreddit = requests.get(URL)
 		self.currentResult = [x for x in requestGIFSubreddit.json()['data']['children']]
 		self.allResults.append(self.currentResult)
 		returnList = []
@@ -24,5 +25,13 @@ class reddit(object):
 	# everything is stored as a reddit model object, this is to try to get all the
 	# values out before parsing it into the engine
 	def processModel(self, result):
-		image = redditModel.redditModel(result)
+		image = gif_redditModel.redditModel(result)
 		return image.getImageList()
+
+	def getImage(self, stringQuery, wholeOrimageModel):
+		returnList = []
+		for i in self.setSubreddits:
+			URL = (self.getGIFSubreddit).format(i, stringQuery)
+			returnInLoop = self.getSubImage(wholeOrimageModel, URL)
+			returnList += returnInLoop
+		return returnList

@@ -6,7 +6,7 @@ import tornado.web
 import tornado.websocket
 import os.path
 from tornado.options import define, options
-from networks import reddit, giphy, tumblr
+from networks import gif_reddit, gif_giphy, gif_tumblr
 import unicodedata
 
 # Whole: Raw data of all the images given by Social Network on that topic.
@@ -18,48 +18,36 @@ import unicodedata
 # Param1: either querying a model or the whole unparsed data, ie: 'Whole'
 # Param2: the actual name of the request, ie: 'Pokemon'
 # @Return: JSON from Giphy parsed either 'model' or 'whole' way.
-def GiphyAPI(param1, param2):
-    modelOrWhole = param1
-    searchQuery = param2
+def GiphyGIFAPI(modelOrWhole, query):
     if modelOrWhole == 'model':
-        # Querying search
-        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-        splitArray = query.split()
-        query = " ".join(splitArray)
         # Starting Giphy Optimization
-        giphyImage = giphy.giphy()
+        giphyImage = gif_giphy.giphy()
         data = giphyImage.getImage(query, 'model')
         return data
     else:
-        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-        splitArray = query.split()
-        query = " ".join(splitArray)
         # Starting Giphy Optimization
-        giphyImage = giphy.giphy()
+        giphyImage = gif_giphy.giphy()
         data = giphyImage.getImage(query, 'whole')
         return data
 
-def RedditAPI(param1, param2):
-    modelOrWhole = param1
-    searchQuery = param2
+def RedditGIFAPI(modelOrWhole, query):
     if modelOrWhole == 'model':
-        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-        splitArray = query.split()
-        query = " ".join(splitArray)
-        # Starting REddit Optimization
-        redditImage = reddit.reddit()
-        data = redditImage.getImage(param2, 'model')
+        # Starting Reddit Optimization
+        redditImage = gif_reddit.reddit()
+        data = redditImage.getImage(query, 'model')
         return data
     else:
-        query = unicodedata.normalize('NFKD', searchQuery).encode('ascii','ignore')
-        splitArray = query.split()
-        query = " ".join(splitArray)
-        # Starting REddit Optimization
-        redditImage = reddit.reddit()
-        data = redditImage.getImage(param2, 'whole')
+        # Starting Reddit Optimization
+        redditImage = gif_reddit.reddit()
+        data = redditImage.getImage(query, 'whole')
         return data
 
-def TumblrAPI(param1, param2):
-    tumblrImage = tumblr.tumblr()
-    tumblrImage.getImage()
-    return {}
+def TumblrGIFAPI(modelOrWhole, query):
+    if modelOrWhole == 'model':
+        tumblrImage = gif_tumblr.tumblr()
+        tumblrImage.getImage()
+        return {}
+    else:
+        tumblrImage = gif_tumblr.tumblr()
+        tumblrImage.getImage()
+        return {}       
