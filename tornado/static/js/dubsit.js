@@ -1,6 +1,11 @@
 var search = []; // Search Array
-search.push('gif');
 var categories = ['web', 'image', 'gif', 'news'];
+
+$(document).ready(function(){
+  if(search.length > 1){
+    analysis(search[1]);
+  }
+});
 
 // Analysis of either image, web or gif etc:
 function analysis(tag){
@@ -42,8 +47,6 @@ function analysis(tag){
     if($.inArray(categories[3], search) != -1){
       $('#results').append('<div id="news_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
       $.getJSON( "api/news/rank/" + tag + ".json", function(data){
-        
-
         if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
           $.each(data, function(i, field){
             var html_img = '';
@@ -53,12 +56,8 @@ function analysis(tag){
             html_img += ''
             html_img += '<br>'
             $("#" + tag).append(html_img);
-          });
-
-          
+          });      
       });
-
-
       $('#results').append('</ul></section></div>');
       $("#" + tag).least();
       $("#h2" + tag).click(function(){
@@ -76,6 +75,7 @@ function onAddTag(tag){
       analysis(tag); 
     }
   }
+  
 }
 
 // Remove Tag from Array
