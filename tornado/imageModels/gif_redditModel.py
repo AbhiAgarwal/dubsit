@@ -16,4 +16,5 @@ class redditModel(object):
 		dictionary['ups'] = self.ups
 		dictionary['downs'] = self.downs
 		dictionary['media_url'] = self.media_url
+		dictionary['source'] = 'reddit'
 		return dictionary

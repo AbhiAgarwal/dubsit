@@ -14,4 +14,5 @@ class imageModel(object):
 		dictionary['height'] = self.height
 		dictionary['width'] = self.width
 		dictionary['media_url'] = self.media_url
+		dictionary['source'] = 'giphy'
 		return dictionary

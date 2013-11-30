@@ -18,6 +18,16 @@ function addSearch(tag) {
 
 // Analysis of either image, web or gif etc:
 function analysis(tag){
+  // just welcome
+  if(tag == 'welcome' && search.length == 1 && prevType == ""){
+      $('#results').append('<div id="welcome_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
+      $('#results').append('</ul></section></div>');
+      $("#" + tag).least();
+      $("#h2" + tag).click(function(){
+        $("#" + tag).toggle();
+      });
+    }
+  // otherwise
   if($.inArray(tag, categories) == 0){console.log(tag);}
   else{
   // 'web'
@@ -124,21 +134,11 @@ function onRemoveTag(tag) {
   }
 }
 
-// Supposed to find the Tag (Autocomplete)
-function onChange(tag){
-  var languages = ['gif','image','web'];
-  $('.tag', tag).each(function(){
-    if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
-      $(this).css('background-color', 'yellow');
-  });
-}
-
 // Initializes the Search Bar
 $(function() {
   $('#tags_1').tagsInput({
     width: 'auto',
     onRemoveTag: onRemoveTag,
     onAddTag: onAddTag,
-    onChange: onChange,
   });                
 });  
