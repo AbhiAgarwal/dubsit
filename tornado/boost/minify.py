@@ -5,6 +5,7 @@ def run():
 	minified = ""
 	for currentFile in files:
 		minified += minify(open('../static/js/' + currentFile).read(), mangle=True, mangle_toplevel=True)
+		minified += '\n'
 	minFile = open('../static/js/main.js', 'w')
 	minFile.write(minified)
 	minFile.close()

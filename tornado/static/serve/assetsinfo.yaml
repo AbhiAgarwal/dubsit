@@ -1,0 +1,38 @@
+css:
+  dubsit:
+    files:
+    - tornado/static/css/bootstrap.css
+    - tornado/static/css/template.css
+    - tornado/static/css/jquery.tagsinput.css
+    - tornado/static/css/least.min.css
+    fingerprint: 70a5245f99d8721f564cd51b77969717b8215e32
+    output:
+      gz: dubsit-70a5245f99d8721f564cd51b77969717b8215e32.min.css.gz
+      min: dubsit-70a5245f99d8721f564cd51b77969717b8215e32.min.css
+      raw: dubsit-70a5245f99d8721f564cd51b77969717b8215e32.css
+    size:
+      gz: 17312
+      min: 102706
+      raw: 125425
+javascript:
+  dubsit:
+    files:
+    - tornado/static/to_js/jquery-2.0.3.min.js
+    - tornado/static/to_js/jquery.tagsinput.js
+    - tornado/static/to_js/bootstrap.min.js
+    - tornado/static/to_js/jquery.lazyload.min.js
+    - tornado/static/to_js/least.min.js
+    - tornado/static/to_js/purl.js
+    - tornado/static/to_js/jquery.history.js
+    - tornado/static/to_js/dubsit.js
+    - tornado/static/to_js/app.js
+    - tornado/static/to_js/pace.min.js
+    fingerprint: 4e809e9d06c1440562fae1f8f4b574de3e39f4c8
+    output:
+      gz: dubsit-4e809e9d06c1440562fae1f8f4b574de3e39f4c8.min.js.gz
+      min: dubsit-4e809e9d06c1440562fae1f8f4b574de3e39f4c8.min.js
+      raw: dubsit-4e809e9d06c1440562fae1f8f4b574de3e39f4c8.js
+    size:
+      gz: 51290
+      min: 160870
+      raw: 173420
