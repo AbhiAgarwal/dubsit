@@ -1,0 +1,28 @@
+output: tornado/static/serve/       # directory path relative to the current directory
+fingerprint: true    # add sha1 hash to the output file name
+js_minifier_options: # options dictionary to configure JS minifier
+  mangle: True
+  mangle_toplevel: True
+
+javascript:
+  # 'common' is a bundle name
+  # output file will have prefix 'common'
+  dubsit:
+    # paths are relative to the current directory
+    - tornado/static/to_js/jquery-2.0.3.min.js
+    - tornado/static/to_js/jquery.tagsinput.js
+    - tornado/static/to_js/bootstrap.min.js
+    - tornado/static/to_js/jquery.lazyload.min.js
+    - tornado/static/to_js/least.min.js
+    - tornado/static/to_js/purl.js
+    - tornado/static/to_js/jquery.history.js
+    - tornado/static/to_js/dubsit.js
+    - tornado/static/to_js/app.js
+    - tornado/static/to_js/pace.min.js
+
+css:
+  dubsit:
+    - tornado/static/css/bootstrap.css
+    - tornado/static/css/template.css
+    - tornado/static/css/jquery.tagsinput.css
+    - tornado/static/css/least.min.css
