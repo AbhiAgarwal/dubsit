@@ -22,5 +22,5 @@ class giphy(object):
 	# processes according to the giphy model object, this is to try get all the values
 	# of every image in accordance with all the social networks
 	def processModel(self, result):
-		image = gif_giphyModel.imageModel(result)
+		image = gif_giphyModel.giphyModel(result)
 		return image.getImageList()

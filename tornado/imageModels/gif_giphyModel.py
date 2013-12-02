@@ -1,4 +1,6 @@
-class imageModel(object):
+from boost import weights
+
+class giphyModel(object):
 	
 	def __init__(self, result):
 		self.id = result.id
@@ -7,12 +9,14 @@ class imageModel(object):
 		self.width = result.width
 		self.media_url = result.media_url
 		
+	# scores the GIF
+	def score(self, score):
+		weights.weight += score
+		weights.iterations += 1
+		return (score * weights.weighing['giphy'])
+
 	def getImageList(self):
 		dictionary = {}
-		dictionary['id'] = self.id
-		dictionary['url'] = self.url
-		dictionary['height'] = self.height
-		dictionary['width'] = self.width
+		dictionary['score'] = self.score(weights.average)
 		dictionary['media_url'] = self.media_url
-		dictionary['source'] = 'giphy'
 		return dictionary

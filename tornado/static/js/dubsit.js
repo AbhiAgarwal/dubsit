@@ -41,7 +41,7 @@ function analysis(tag){
     // 'gif'
     if($.inArray(categories[2], search) != -1){
       // appending results
-      $('#results').append('<div id="gif_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
+      $('#results').append('<div id="gif_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id="' + tag + '">');
       $.getJSON( "api/gif/rank/" + tag + ".json", function(data){
         if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
         else{
@@ -64,10 +64,10 @@ function analysis(tag){
         }
       });
       $('#results').append('</ul></section></div>');
-      $("#" + tag).least();
       $("#h2" + tag).click(function(){
         $("#" + tag).toggle();
       });
+      $("#" + tag).least();
     }
     // 'news'
     if($.inArray(categories[3], search) != -1){
