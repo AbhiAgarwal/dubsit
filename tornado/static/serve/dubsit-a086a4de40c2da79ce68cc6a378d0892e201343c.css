@@ -6802,28 +6802,9 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
-}.pace .pace-progress {
-  background: #29d;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  height: 2px;
-
-  -webkit-transition: width 1s;
-  -moz-transition: width 1s;
-  -o-transition: width 1s;
-  transition: width 1s;
-}
-
-.pace-inactive {
-  display: none;
-}
-
-.pagination li {
-  display:inline-block;
-  padding:5px;
-}div.tagsinput { border:1px solid #CCC; background: #FFF; padding:5px; width:300px; height:25px; overflow-y: auto;}
+}.pace .pace-progress{background:#29d;position:fixed;z-index:2000;top:0;left:0;height:2px;-webkit-transition:width 1s;-moz-transition:width 1s;-o-transition:width 1s;transition:width 1s}
+.pace-inactive{display:none}
+.pagination li{display:inline-block;padding:5px}div.tagsinput { border:1px solid #CCC; background: #FFF; padding:5px; width:300px; height:25px; overflow-y: auto;}
 div.tagsinput span.tag { border: 1px solid #a5d24a; -moz-border-radius:2px; -webkit-border-radius:2px; display: block; float: left; padding: 5px; text-decoration:none; background: #cde69c; color: #638421; margin-right: 5px; margin-bottom:5px;font-family: helvetica;  font-size:13px;}
 div.tagsinput span.tag a { font-weight: bold; color: #82ad2b; text-decoration:none; font-size: 11px;  } 
 div.tagsinput input { width:80px; margin:0px; font-family: helvetica; font-size: 13px; border:1px solid transparent; padding:5px; background: transparent; color: #000; outline:0px;  margin-right:5px; margin-bottom:5px; }

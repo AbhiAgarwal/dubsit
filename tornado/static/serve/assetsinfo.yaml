@@ -5,15 +5,15 @@ css:
     - tornado/static/css/template.css
     - tornado/static/css/jquery.tagsinput.css
     - tornado/static/css/least.min.css
-    fingerprint: 70a5245f99d8721f564cd51b77969717b8215e32
+    fingerprint: a086a4de40c2da79ce68cc6a378d0892e201343c
     output:
-      gz: dubsit-70a5245f99d8721f564cd51b77969717b8215e32.min.css.gz
-      min: dubsit-70a5245f99d8721f564cd51b77969717b8215e32.min.css
-      raw: dubsit-70a5245f99d8721f564cd51b77969717b8215e32.css
+      gz: dubsit-a086a4de40c2da79ce68cc6a378d0892e201343c.min.css.gz
+      min: dubsit-a086a4de40c2da79ce68cc6a378d0892e201343c.min.css
+      raw: dubsit-a086a4de40c2da79ce68cc6a378d0892e201343c.css
     size:
       gz: 17312
       min: 102706
-      raw: 125425
+      raw: 125363
 javascript:
   dubsit:
     files:
