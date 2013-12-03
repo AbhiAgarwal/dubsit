@@ -6,13 +6,16 @@ import os
 import signal
 from boost import timing
 
+operationCount = 0
 TIMEOUT_ = False
 
 class TimeoutError(Exception):
-    if timing.operationCount is not 0:
+    if operationCount is not 0:
         TIMEOUT_ = True
 
 def timeout(seconds=10, error_message="heh"):
+    global operationCount 
+    operationCount += 1
     def decorator(func):
         def _handle_timeout(signum, frame):
             raise TimeoutError(error_message)

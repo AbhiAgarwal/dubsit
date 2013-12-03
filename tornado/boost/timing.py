@@ -16,6 +16,5 @@ def timeit(method):
         elif method.__name__ == 'NEWSRankHandler':
             NEWSRankHandler['avg'] = (NEWSRankHandler['avg']*NEWSRankHandler['iter'] + (te - ts))/(NEWSRankHandler['iter']+1)
             NEWSRankHandler['iter'] += 1
-        operationCount += 1
         return result
     return timed
