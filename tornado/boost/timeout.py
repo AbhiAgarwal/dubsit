@@ -4,11 +4,15 @@ from functools import wraps
 import errno
 import os
 import signal
+from boost import timing
+
+TIMEOUT_ = False
 
 class TimeoutError(Exception):
-    print "Exception"
+    if timing.operationCount is not 0:
+        TIMEOUT_ = True
 
-def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
+def timeout(seconds=10, error_message="heh"):
     def decorator(func):
         def _handle_timeout(signum, frame):
             raise TimeoutError(error_message)

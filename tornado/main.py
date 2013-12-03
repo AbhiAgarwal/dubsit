@@ -29,6 +29,9 @@ class Application(tornado.web.Application):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
+        self.set_header("Content-Type", "text/html")
+        self.set_header("Cache-control", "content=public")
+        self.set_header("Cache-control", "max-age=25200")
         self.render("index.html")
 
 def main():
