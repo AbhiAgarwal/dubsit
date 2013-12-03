@@ -1,10 +1,12 @@
+# tests 5 second results, ONLY for single-threaded programs
+
 from functools import wraps
 import errno
 import os
 import signal
 
 class TimeoutError(Exception):
-    pass
+    print "Exception"
 
 def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
     def decorator(func):
