@@ -6,6 +6,7 @@ build () {
 	uglifyjs -o ./tornado/static/to_js/app.js ./tornado/static/to_js/app.max.js
 	uglifyjs -o ./tornado/static/to_js/jquery.tagsinput.js ./tornado/static/to_js/jquery.tagsinput.max.js
 	uglifyjs -o ./tornado/static/to_js/purl.js ./tornado/static/to_js/purl.max.js
+	uglifyjs -o ./tornado/static/to_js/jquery.simplePagination.js ./tornado/static/to_js/jquery.simplePagination.max.js
 	crammit -c assets.yaml
 	echo "complete"
 }
