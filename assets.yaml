@@ -16,7 +16,7 @@ javascript:
     - tornado/static/to_js/least.min.js
     - tornado/static/to_js/purl.js
     - tornado/static/to_js/jquery.history.js
-    - tornado/static/to_js/jquery.simplePagination.js
+    - tornado/static/to_js/jquery.paginate.min.js
     - tornado/static/to_js/dubsit.js
     - tornado/static/to_js/app.js
     - tornado/static/to_js/pace.min.js
@@ -27,4 +27,3 @@ css:
     - tornado/static/css/template.css
     - tornado/static/css/jquery.tagsinput.css
     - tornado/static/css/least.min.css
-    - tornado/static/css/simplePagination.css

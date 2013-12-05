@@ -5,16 +5,15 @@ css:
     - tornado/static/css/template.css
     - tornado/static/css/jquery.tagsinput.css
     - tornado/static/css/least.min.css
-    - tornado/static/css/simplePagination.css
-    fingerprint: 4180d4dc7bf7a3c12778f37a91c33c04603c899d
+    fingerprint: 8b16d6e4a953d42a093dccb90a5832efb75628b8
     output:
-      gz: dubsit-4180d4dc7bf7a3c12778f37a91c33c04603c899d.min.css.gz
-      min: dubsit-4180d4dc7bf7a3c12778f37a91c33c04603c899d.min.css
-      raw: dubsit-4180d4dc7bf7a3c12778f37a91c33c04603c899d.css
+      gz: dubsit-8b16d6e4a953d42a093dccb90a5832efb75628b8.min.css.gz
+      min: dubsit-8b16d6e4a953d42a093dccb90a5832efb75628b8.min.css
+      raw: dubsit-8b16d6e4a953d42a093dccb90a5832efb75628b8.css
     size:
-      gz: 17840
-      min: 106643
-      raw: 130969
+      gz: 17341
+      min: 102790
+      raw: 125452
 javascript:
   dubsit:
     files:
@@ -25,16 +24,16 @@ javascript:
     - tornado/static/to_js/least.min.js
     - tornado/static/to_js/purl.js
     - tornado/static/to_js/jquery.history.js
-    - tornado/static/to_js/jquery.simplePagination.js
+    - tornado/static/to_js/jquery.paginate.min.js
     - tornado/static/to_js/dubsit.js
     - tornado/static/to_js/app.js
     - tornado/static/to_js/pace.min.js
-    fingerprint: c7089340a97208f8d100a1ee86f004f1f9c1cd49
+    fingerprint: 4770a408dcbea077e21c1088ee245725b662676c
     output:
-      gz: dubsit-c7089340a97208f8d100a1ee86f004f1f9c1cd49.min.js.gz
-      min: dubsit-c7089340a97208f8d100a1ee86f004f1f9c1cd49.min.js
-      raw: dubsit-c7089340a97208f8d100a1ee86f004f1f9c1cd49.js
+      gz: dubsit-4770a408dcbea077e21c1088ee245725b662676c.min.js.gz
+      min: dubsit-4770a408dcbea077e21c1088ee245725b662676c.min.js
+      raw: dubsit-4770a408dcbea077e21c1088ee245725b662676c.js
     size:
-      gz: 51609
-      min: 162139
-      raw: 165850
+      gz: 51675
+      min: 162306
+      raw: 165842

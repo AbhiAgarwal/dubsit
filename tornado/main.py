@@ -33,7 +33,7 @@ class MainHandler(tornado.web.RequestHandler):
         self.set_header("Content-Type", "text/html; charset=UTF-8")
         self.set_header("Cache-control", "content=public")
         self.set_header("Cache-control", "max-age=25200")
-        self.render("exp.html", relevance=relevance.GIF)
+        self.render("index.html", relevance=relevance.GIF)
 
 def main():
     tornado.options.parse_command_line()
