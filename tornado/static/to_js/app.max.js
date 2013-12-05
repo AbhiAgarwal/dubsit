@@ -10,3 +10,5 @@ $(window).load(function() {
 		$('#tags_1').addTag('gif');
 	} 
 });
+
+function imgError(image){$(image).remove()}

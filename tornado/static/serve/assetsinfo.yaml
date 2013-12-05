@@ -28,12 +28,12 @@ javascript:
     - tornado/static/to_js/dubsit.js
     - tornado/static/to_js/app.js
     - tornado/static/to_js/pace.min.js
-    fingerprint: 4770a408dcbea077e21c1088ee245725b662676c
+    fingerprint: 6691275cdc1e209c0945b3768c54432e6e14dfd2
     output:
-      gz: dubsit-4770a408dcbea077e21c1088ee245725b662676c.min.js.gz
-      min: dubsit-4770a408dcbea077e21c1088ee245725b662676c.min.js
-      raw: dubsit-4770a408dcbea077e21c1088ee245725b662676c.js
+      gz: dubsit-6691275cdc1e209c0945b3768c54432e6e14dfd2.min.js.gz
+      min: dubsit-6691275cdc1e209c0945b3768c54432e6e14dfd2.min.js
+      raw: dubsit-6691275cdc1e209c0945b3768c54432e6e14dfd2.js
     size:
-      gz: 51675
-      min: 162306
-      raw: 165842
+      gz: 51680
+      min: 162335
+      raw: 165885
