@@ -17,6 +17,7 @@ javascript:
     - tornado/static/to_js/purl.js
     - tornado/static/to_js/jquery.history.js
     - tornado/static/to_js/jquery.paginate.min.js
+    - tornado/static/to_js/Chart.js
     - tornado/static/to_js/dubsit.js
     - tornado/static/to_js/app.js
     - tornado/static/to_js/pace.min.js
