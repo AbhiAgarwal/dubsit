@@ -16,6 +16,8 @@ from networks.news_handlers import RedditNEWSAPI
 from boost.timing import timeit
 from boost import timing
 from boost.timeout import timeout
+# mongo
+from mongo import tags
 
 def normalize(param1):
     query = unicodedata.normalize('NFKD', param1).encode('ascii','ignore')
@@ -31,6 +33,7 @@ class GIFRankHandler(tornado.web.RequestHandler):
     	# Querying search
         query = normalize(param1)
         # Get Results
+        tags.GIFSearch(query)
         RedditResults = RedditGIFAPI('model', query)
     	GiphyResults = GiphyGIFAPI('model', query)
     	TotalResults = self.GIFRank(GiphyResults, RedditResults)
@@ -56,6 +59,7 @@ class NEWSRankHandler(tornado.web.RequestHandler):
     def get(self, param1):
         # Querying search
         query = normalize(param1)
+        tags.NewsSearch(query)
 		# Get Results
         RedditResults = RedditNEWSAPI('model', query)
         TotalResults = self.NEWSRank(RedditResults)
