@@ -9,33 +9,36 @@ $(document).ready(function(){
   }
 });
 
-function addType(tag) {
-  History.pushState({state: tag}, "Dubsit", ("?type=" + tag));
-}
-function addSearch(tag) {
-  History.pushState({state: tag}, "Dubsit", ("?type=" + prevType + "&search=" + tag));
-}
-
-function specify(URL, end){
-
+function imgError(image){
+    $(image).remove();
 }
 
 // Analysis of either image, web or gif etc:
 function analysis(tag){
-  // just welcome
+  // 'welcome'
   if(tag == 'welcome' && search.length == 1 && prevType == ""){
-      $('#results').append('<div id="welcome_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
-      $('#results').append('</ul></section></div>');
-      $("#" + tag).least();
-      $("#h2" + tag).click(function(){
-        $("#" + tag).toggle();
-      });
-    }
-  // otherwise
-  if($.inArray(tag, categories) == 0){console.log(tag);}
+    // HTML to be added to the welcome
+    var html_to_add = '<div id="welcome_division">';
+    html_to_add += '<section id="id' + tag + '">';
+    html_to_add += '<div id="h2' + tag + '"><h2>' + tag + '</h2></div>'
+    html_to_add += '<ul id=' + tag + '>'
+    html_to_add += '<li>heh</li>'
+    html_to_add += '</ul></section></div>'
+    // Adding the HTML & Checking Cache
+    $('#results').append(html_to_add);
+    $("#" + tag).least();
+    // Create instance of a toggle
+    $("#h2" + tag).click(function(){
+      $("#" + tag).toggle();
+    });
+    // Stop execution
+    return;
+  }
+  // not 'welcome'
+  if($.inArray(tag, categories) == 0){}
   else{
-  // 'web'
-    if($.inArray(categories[0], search) != -1){ // == 0 means is present
+    // 'web'
+    if($.inArray(categories[0], search) != -1){
       console.log('web');
     }
     // 'image'
@@ -44,57 +47,85 @@ function analysis(tag){
     }
     // 'gif'
     if($.inArray(categories[2], search) != -1){
-      // appending results
-      $('#results').append('<div id="gif_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><div id="' + tag + '-pagination"><a id="' + tag + '-previous" href="#" class="disabled">Previous</a><a id="' + tag + '-next" href="#"> Next</a></div><ul id="' + tag + '">');
+
+      var html_to_add = '<div id="gif_division">';
+      html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
+      html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + tag + '</div>';
+      html_to_add += '<ul class="pager" id="' + tag + '-pagination"><li><a id="' + tag + '-previous" href="#">Previous</a></li> <li><a id="' + tag + '-next" href="#">Next</a></li></ul>';
+      html_to_add += '<div class="panel-body">';
+      html_to_add += '<ul id="' + tag + '">';
+
       $.getJSON( "api/gif/rank/" + tag + ".json", function(data){
-        if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
-        else{
-          $.each(data, function(i, field){
-            // checking if duplicate
-            var splitData = ((field.media_url).split(".com"))[1];
-            // to check if image exists
-            if(!($.inArray(splitData, urlsVisited) != -1)){
-              $("<img src=" + field.media_url +  ">").load(function(){
-                // if exists then adds it to the GIF layer :)
-                // now we need to check if the GIF has already been added
-                  var html_img = '<li>';
-                  html_img += '<img data-original="' + field.media_url + '" src="' + field.media_url + '" width="240" height="150" />'
-                  html_img += '</li>'
-                  $("#" + tag).append(html_img);
-              });
-            }
-            urlsVisited.push(splitData);
-          });
-        }
+
+      if($.isEmptyObject(data)){
+        $("#h2" + tag).html(tag + ': Nothing found');
+      }
+
+        $.each(data, function(i, field){
+          var splitData = ((field.media_url).split(".com"))[1];
+
+          if(!($.inArray(splitData, urlsVisited) != -1)){
+            var current_html = '<li>'
+            current_html += '<img src="' + field.media_url + '" data-src="' + field.media_url + '" alt="" width="240" height="180" onerror="imgError(this);">';
+            current_html += '</a>';
+            current_html += '</li>';
+
+            $('#' + tag).append(current_html);
+            $('#' + tag).paginate({itemsPerPage: 15});
+          }
+          urlsVisited.push(splitData);
+        }); 
+
       });
-      $('#results').append('</ul></section></div>');
+
+      html_to_add += '</ul></div></section></div>';
+      $('#results').append(html_to_add);
       $("#h2" + tag).click(function(){
         $("#" + tag).toggle();
       });
-      $("#" + tag).least();
+
+      $(document).ready(function() {
+        $('#' + tag).paginate({itemsPerPage: 15});
+      });
     }
     // 'news'
     if($.inArray(categories[3], search) != -1){
-      $('#results').append('<div id="news_division"><section id="id' + tag + '"><div id="h2' + tag + '"><h2>' + tag + '</h2></div><ul id=' + tag + '>');
+      
+      var html_to_add = '<div id="news_division">';
+      html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
+      html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + tag + '</div>';
+      html_to_add += '<div class="panel-body">';
+      html_to_add += '<ul id="' + tag + '" class="list-group">';
+
       $.getJSON( "api/news/rank/" + tag + ".json", function(data){
-        if($.isEmptyObject(data)){$("#h2" + tag).html('<h2>' + tag + ': Nothing found</h2>');}
-          $.each(data, function(i, field){
-            var html_img = '';
-            html_img += '<a data-original="' + field.url + '" href="' + field.url + '" target="_news">'
-            html_img += field.title
-            html_img += '</a>'
-            html_img += ''
-            html_img += '<br>'
-            $("#" + tag).append(html_img);
+
+        $.each(data, function(i, field){
+
+          var current_html = '<a href="' + field.url + '" class="list-group-item" target="_news">'
+          current_html += '<span class="badge">14</span>';
+          current_html += '<h4 class="list-group-item-heading">' + field.title + '</h4>';
+          current_html += '</li></div>';
+
+          $('#' + tag).append(current_html);
+
           });      
+
       });
-      $('#results').append('</ul></section></div>');
-      $("#" + tag).least();
+
+      html_to_add += '</ul></div></section></div>';
+      $('#results').append(html_to_add);
       $("#h2" + tag).click(function(){
         $("#" + tag).toggle();
-      }); 
+      });
     }
   }
+}
+
+function addType(tag) {
+  History.pushState({state: tag}, "Dubsit", ("?type=" + tag));
+}
+function addSearch(tag) {
+  History.pushState({state: tag}, "Dubsit", ("?type=" + prevType + "&search=" + tag));
 }
 
 // Adds Tag to Search

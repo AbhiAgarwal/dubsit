@@ -43,7 +43,7 @@ section {
   width: 100%;
   min-height: 100%;
   text-align: center;
-  padding: 30px 0;
+  padding: 10px 0;
   margin-bottom: 30px;
   background-color: #333333;
   box-shadow: 0 0 10px;
@@ -103,7 +103,7 @@ section {
       transition: opacity 0.3s linear;
       opacity: 1;
       display: block; }
-    section li a {
+   /* section li a {
       display: block;
       width: 240px;
       height: 150px;
@@ -111,6 +111,7 @@ section {
       top: 10px;
       left: 0;
       z-index: 6; }
+    */
       section li a.spinner {
         background-size: 100%;
         background-image: url("../img/effects/spinner.gif");

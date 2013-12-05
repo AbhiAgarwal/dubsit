@@ -48,6 +48,7 @@ html {
 
 body {
   margin: 0;
+  padding-top: 50px;
 }
 
 a:focus {

@@ -42,8 +42,10 @@ class GIFRankHandler(tornado.web.RequestHandler):
         for i in RedditResults: finalSource.append(i)   
         # parse through Giphy Results
         for i in GiphyResults: finalSource.append(i)   
+        # reset
+        result = [dict(tupleized) for tupleized in set(tuple(item.items()) for item in finalSource)]
         # sort the final source before saving as JSON
-        finalSource = (sorted(finalSource, key = itemgetter('score')))[::-1]
+        finalSource = (sorted(result, key = itemgetter('score')))[::-1]
         # return the source to be shown
         return finalSource
 
