@@ -6,7 +6,6 @@ import tornado.options
 import tornado.web
 import tornado.websocket
 import os.path
-import unicodedata, sys, json
 from operator import itemgetter
 from tornado.options import define, options
 # personal calls
@@ -18,12 +17,8 @@ from boost import timing
 from boost.timeout import timeout
 # mongo
 from mongo import tags
-
-def normalize(param1):
-    query = unicodedata.normalize('NFKD', param1).encode('ascii','ignore')
-    splitArray = query.split()
-    query = " ".join(splitArray)
-    return query
+# normalize
+from boost.normalize import normalize
 
 @timeit
 @timeout((timing.GIFRankHandler['avg'] + 10))

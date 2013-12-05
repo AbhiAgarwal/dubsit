@@ -104,7 +104,7 @@ function analysis(tag){
           var current_html = '<a href="' + field.url + '" class="list-group-item" target="_news">'
           current_html += '<span class="badge">14</span>';
           current_html += '<h4 class="list-group-item-heading">' + field.title + '</h4>';
-          current_html += '</li></div>';
+          current_html += '</a>';
 
           $('#' + tag).append(current_html);
 
@@ -116,6 +116,39 @@ function analysis(tag){
       $('#results').append(html_to_add);
       $("#h2" + tag).click(function(){
         $("#" + tag).toggle();
+      });
+    }
+    // 'chart gif'
+    if(tag == 'chart gif'){
+      var html_to_add = '<div id=' + tag + '>';
+      html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
+      html_to_add += '<div id="h2' + tag + '" class="panel-heading">GIF Analytics</div>';
+      html_to_add += '<div class="panel-body">';
+      html_to_add += '<ul id="' + tag + '">';
+      html_to_add += '<li>';
+      html_to_add += '<canvas id="gif_analytics" width="600" height="400"></canvas>';
+      html_to_add += '</li></ul></div></section></div>';
+      $('#results').append(html_to_add);
+
+      var GraphLabels = [];
+      var GraphData = [];
+
+      $.getJSON( "api/graph/GIF.json" + tag + ".json", function(data){
+        $.each(data, function(i, field){
+          GraphLabels.push(field.name);
+          GraphData.push(field.count);
+        }); 
+        var barChartData = {
+          labels : GraphLabels,
+          datasets : [
+          {
+            fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            data : GraphData
+          }
+          ]                       
+        }
+        var myLine = new Chart(document.getElementById("gif_analytics").getContext("2d")).Bar(barChartData);
       });
     }
   }
