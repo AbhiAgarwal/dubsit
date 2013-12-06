@@ -36,8 +36,8 @@ class AnalyticHandler(tornado.web.RequestHandler):
             toReturn = GIFcollection.find().sort("count").limit(7)
             for doc in toReturn:
                 result.append({'count': doc['count'], 'name': doc['name']})
-        elif query is 'news':
-            toReturn = GIFcollection.find().sort("count").limit(7)
+        elif 'news' in query:
+            toReturn = NEWScollection.find().sort("count").limit(7)
             for doc in toReturn:
                 result.append({'count': doc['count'], 'name': doc['name']})
 
