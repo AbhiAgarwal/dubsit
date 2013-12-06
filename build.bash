@@ -2,7 +2,7 @@
 
 # building the primary configuration
 build () {
-	uglifyjs -o ./tornado/static/to_js/dubsit.js ./tornado/static/to_js/dubsit.max.js
+	uglifyjs -o ./tornado/static/to_js/dubsit.js ./tornado/static/to_js/dubsit.reform.js
 	uglifyjs -o ./tornado/static/to_js/app.js ./tornado/static/to_js/app.max.js
 	uglifyjs -o ./tornado/static/to_js/jquery.tagsinput.js ./tornado/static/to_js/jquery.tagsinput.max.js
 	uglifyjs -o ./tornado/static/to_js/purl.js ./tornado/static/to_js/purl.max.js

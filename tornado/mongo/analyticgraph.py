@@ -32,11 +32,11 @@ class AnalyticHandler(tornado.web.RequestHandler):
         query = normalize(param1)
         # Get Results
         result = []
-        if 'GIF' in query:
+        if 'gif' in query:
             toReturn = GIFcollection.find().sort("count").limit(7)
             for doc in toReturn:
                 result.append({'count': doc['count'], 'name': doc['name']})
-        elif query is 'News':
+        elif query is 'news':
             toReturn = GIFcollection.find().sort("count").limit(7)
             for doc in toReturn:
                 result.append({'count': doc['count'], 'name': doc['name']})

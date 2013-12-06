@@ -119,36 +119,38 @@ function analysis(tag){
       });
     }
     // 'chart gif'
-    if(tag == 'chart gif'){
-      var html_to_add = '<div id=' + tag + '>';
-      html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
-      html_to_add += '<div id="h2' + tag + '" class="panel-heading">GIF Analytics</div>';
-      html_to_add += '<div class="panel-body">';
-      html_to_add += '<ul id="' + tag + '">';
-      html_to_add += '<li>';
-      html_to_add += '<canvas id="gif_analytics" width="600" height="400"></canvas>';
-      html_to_add += '</li></ul></div></section></div>';
-      $('#results').append(html_to_add);
+    if(tag == 'chart'){
+      $.getScript("static/to_js/Chart.js", function(){
+        var html_to_add = '<div id="chart_division">';
+        html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
+        html_to_add += '<div id="h2' + tag + '" class="panel-heading">GIF Analytics</div>';
+        html_to_add += '<div class="panel-body">';
+        html_to_add += '<ul id="' + tag + '">';
+        html_to_add += '<li>';
+        html_to_add += '<canvas id="gif_analytics" width="600" height="400"></canvas>';
+        html_to_add += '</li></ul></div></section></div>';
+        $('#results').append(html_to_add);
 
-      var GraphLabels = [];
-      var GraphData = [];
+        var GraphLabels = [];
+        var GraphData = [];
 
-      $.getJSON( "api/graph/GIF.json" + tag + ".json", function(data){
-        $.each(data, function(i, field){
-          GraphLabels.push(field.name);
-          GraphData.push(field.count);
-        }); 
-        var barChartData = {
-          labels : GraphLabels,
-          datasets : [
-          {
-            fillColor : "rgba(151,187,205,0.5)",
-            strokeColor : "rgba(151,187,205,1)",
-            data : GraphData
+        $.getJSON( "api/graph/GIF.json" + tag + ".json", function(data){
+          $.each(data, function(i, field){
+            GraphLabels.push(field.name);
+            GraphData.push(field.count);
+          }); 
+          var barChartData = {
+            labels : GraphLabels,
+            datasets : [
+            {
+              fillColor : "rgba(151,187,205,0.5)",
+              strokeColor : "rgba(151,187,205,1)",
+              data : GraphData
+            }
+            ]                       
           }
-          ]                       
-        }
-        var myLine = new Chart(document.getElementById("gif_analytics").getContext("2d")).Bar(barChartData);
+          var myLine = new Chart(document.getElementById("gif_analytics").getContext("2d")).Bar(barChartData);
+        });
       });
     }
   }

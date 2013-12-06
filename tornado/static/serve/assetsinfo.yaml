@@ -25,16 +25,15 @@ javascript:
     - tornado/static/to_js/purl.js
     - tornado/static/to_js/jquery.history.js
     - tornado/static/to_js/jquery.paginate.min.js
-    - tornado/static/to_js/Chart.js
     - tornado/static/to_js/dubsit.js
     - tornado/static/to_js/app.js
     - tornado/static/to_js/pace.min.js
-    fingerprint: 7717d914fc8c71e8256cdb0e4057435c29738a6c
+    fingerprint: daea5adfebad4f0a61f4765afe215e01db522625
     output:
-      gz: dubsit-7717d914fc8c71e8256cdb0e4057435c29738a6c.min.js.gz
-      min: dubsit-7717d914fc8c71e8256cdb0e4057435c29738a6c.min.js
-      raw: dubsit-7717d914fc8c71e8256cdb0e4057435c29738a6c.js
+      gz: dubsit-daea5adfebad4f0a61f4765afe215e01db522625.min.js.gz
+      min: dubsit-daea5adfebad4f0a61f4765afe215e01db522625.min.js
+      raw: dubsit-daea5adfebad4f0a61f4765afe215e01db522625.js
     size:
-      gz: 56511
-      min: 184773
-      raw: 199036
+      gz: 52021
+      min: 163695
+      raw: 167735
