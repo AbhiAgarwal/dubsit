@@ -23,7 +23,7 @@ javascript:
 
 css:
   dubsit:
-    - tornado/static/css/bootstrap.css
     - tornado/static/css/template.css
+    - tornado/static/css/bootstrap.css
     - tornado/static/css/jquery.tagsinput.css
     - tornado/static/css/least.min.css
