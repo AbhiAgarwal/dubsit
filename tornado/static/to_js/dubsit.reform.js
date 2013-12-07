@@ -1,7 +1,7 @@
 var search = []; // Search Categories Array
 var search_tag = []; // Tag Array
 var urlsVisited = []; // URLS that you've visited
-var categories = ['web', 'image', 'gif', 'news', 'chart']; // All categories you can use for the array
+var categories = ['web', 'image', 'gif', 'news', 'chart', 'welcome']; // All categories you can use for the array
 
 // Perform analysis
 $(document).ready(function() {
@@ -58,7 +58,7 @@ function gif(tag) {
 function news(tag) {
   var html_to_add = '<div id="news_division">';
       html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
-      html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + tag.capitalize() + '</div>';
+      html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + 'News: ' + tag.capitalize() + '</div>';
       html_to_add += '<div class="panel-body">';
       html_to_add += '<ul id="' + tag + '" class="list-group">';
   $.getJSON( "api/news/rank/" + tag + ".json", function(data) {
@@ -80,7 +80,6 @@ function news(tag) {
 // Chart Function
 function chart(tag) {
   if(tag != 'news' && tag != 'gif') {
-    console.log(tag.toLowerCase());
     var html_to_add = '<div id="chart_division">';
         html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
         html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + tag.capitalize() + ': Not Found</div>';
@@ -118,6 +117,23 @@ function chart(tag) {
   }
 }
 
+// Welcome
+function welcome(tag) {
+  var html_to_add = '<div id="welcome_division">';
+      html_to_add += '<section id="id' + tag + '">';
+      html_to_add += '<div id="h2' + tag + '"><h2>' + tag + '</h2></div>'
+      html_to_add += '<ul id=' + tag + '>'
+      html_to_add += '<li>heh</li>'
+      html_to_add += '</ul></section></div>'
+  // Adding the HTML & Checking Cache
+  $('#results').append(html_to_add);
+  $("#" + tag).least();
+  // Create instance of a toggle
+  $("#h2" + tag).click(function(){
+    $("#" + tag).toggle();
+  });
+}
+
 // Analytics
 function analysis(tag){
   tag = tag.toLowerCase();
@@ -136,6 +152,9 @@ function analysis(tag){
   if($.inArray(categories[4], search_tag) != -1) {
     chart(tag);
   }
+  if(($.inArray(categories[5], search_tag) != -1) && search.length == 0) {
+    welcome(tag);
+  }
 
 }
 
@@ -152,7 +171,11 @@ function addType(tag) {
 }
 
 function addSearch(tag) {
-  History.pushState({state: tag}, "Dubsit", ("?type=" + search_tag[search_tag.length-1] + "&search=" + tag));
+  if(search_tag.length == 0){
+    History.pushState({state: tag}, "Dubsit", ("?type=&search=" + tag));
+  } else {
+    History.pushState({state: tag}, "Dubsit", ("?type=" + search_tag[search_tag.length-1] + "&search=" + tag));
+  }
 }
 
 // Tag Bar configuration
@@ -175,6 +198,12 @@ function onAddTag(tag) {
         search.push(tag);
         addSearch(tag);
         analysis(tag);
+      // special case when
+      } else if(tag == categories[5]) {
+        search_tag.push(tag);
+        addType(tag);
+        analysis(tag);
+
       } else {
         // push it into the category array
         search_tag.push(tag);
@@ -247,10 +276,19 @@ function onRemoveTag(tag) {
     $('#' + tag).remove();
     // Set the URL to be the last element in the search_tag array
     if(search_tag.length != 0) {
-      History.pushState({state: tag}, "Dubsit", ("?type=" + search_tag[search_tag.length-1]));
       // if there is an element before then add it to the URL
       if(search.length != 0) {
         History.pushState({state: tag}, "Dubsit", ("?type=" + search_tag[search_tag.length-1] + "&search=" + search[search.length-1]));
+      } else {
+        History.pushState({state: tag}, "Dubsit", ("?type=" + search_tag[search_tag.length-1]));
+      }
+    }
+    // If no CATEGORY but has tag
+    if(search_tag.length == 0){
+      if(search.length != 0){
+        History.pushState({state: tag}, "Dubsit", ("?type=&search=" + search[search.length-1]));
+      } else {
+        History.pushState({state: tag}, "Dubsit", ("?"));
       }
     }
   }

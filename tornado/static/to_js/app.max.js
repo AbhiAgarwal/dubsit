@@ -6,9 +6,15 @@ $(window).load(function() {
 		var searchQuery = url.param('search');
 		$('#tags_1').addTag(typeQuery);
 		$('#tags_1').addTag(searchQuery);
+	} else if(url.param('type') != undefined) {
+		var typeQuery = url.param('type');
+		$('#tags_1').addTag(typeQuery);
+	} else if(url.param('search') != undefined) {
+		var searchQuery = url.param('search');
+		$('#tags_1').addTag(searchQuery);
 	} else {
 		$('#tags_1').addTag('gif');
-	} 
+	}
 });
 
 // checking if the image contains an error

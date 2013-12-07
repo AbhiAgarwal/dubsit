@@ -1,3 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather);
+#navbar_Dubsit{
+    font-family: 'Merriweather', serif;
+    float: left;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.pace .pace-progress{background:#29d;position:fixed;z-index:2000;top:0;left:0;height:2px;-webkit-transition:width 1s;-moz-transition:width 1s;-o-transition:width 1s;transition:width 1s}
+.pace-inactive{display:none}
+.pagination li{display:inline-block;padding:5px}
+a.disabled{text-decoration:none;color:#000;cursor:default}
 /*!
  * Bootstrap v3.0.0
  *
@@ -41,7 +54,7 @@ audio:not([controls]) {
 }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Merriweather', serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -301,7 +314,7 @@ html {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Merriweather', serif;
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
@@ -463,7 +476,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Merriweather', serif;
   font-weight: 500;
   line-height: 1.1;
 }
@@ -6803,14 +6816,12 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
-}.pace .pace-progress{background:#29d;position:fixed;z-index:2000;top:0;left:0;height:2px;-webkit-transition:width 1s;-moz-transition:width 1s;-o-transition:width 1s;transition:width 1s}
-.pace-inactive{display:none}
-.pagination li{display:inline-block;padding:5px}
-a.disabled{text-decoration:none;color:#000;cursor:default}div.tagsinput { border:1px solid #CCC; background: #FFF; padding:5px; width:300px; height:25px; overflow-y: auto;}
-div.tagsinput span.tag { border: 1px solid #a5d24a; -moz-border-radius:2px; -webkit-border-radius:2px; display: block; float: left; padding: 5px; text-decoration:none; background: #cde69c; color: #638421; margin-right: 5px; margin-bottom:5px;font-family: helvetica;  font-size:13px;}
-div.tagsinput span.tag a { font-weight: bold; color: #82ad2b; text-decoration:none; font-size: 11px;  } 
-div.tagsinput input { width:80px; margin:0px; font-family: helvetica; font-size: 13px; border:1px solid transparent; padding:5px; background: transparent; color: #000; outline:0px;  margin-right:5px; margin-bottom:5px; }
-div.tagsinput div { display:block; float: left; } 
+}
+div.tagsinput { border:1px solid #CCC; background: #FFF; padding:5px; width:300px; height:25px; overflow-y: auto;}
+div.tagsinput span.tag { border: 1px solid #a5d24a; -moz-border-radius:2px; -webkit-border-radius:2px; display: block; float: left; padding: 5px; text-decoration:none; background: #cde69c; color: #638421; margin-right: 5px; margin-bottom:5px;font-family: 'Merriweather', serif;  font-size:13px;}
+div.tagsinput span.tag a { font-weight: bold; color: #82ad2b; text-decoration:none; font-size: 11px;  }
+div.tagsinput input { width:80px; margin:0px; font-family: 'Merriweather', serif; font-size: 13px; border:1px solid transparent; padding:5px; background: transparent; color: #000; outline:0px;  margin-right:5px; margin-bottom:5px; }
+div.tagsinput div { display:block; float: left; }
 .tags_clear { clear: both; width: 100%; height: 0px; }
 .not_valid {background: #FBD8DB !important; color: #90111A !important;}
 @import url(http://fonts.googleapis.com/css?family=Arvo);
