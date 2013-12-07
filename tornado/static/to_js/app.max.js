@@ -11,4 +11,11 @@ $(window).load(function() {
 	} 
 });
 
+// checking if the image contains an error
+// if it does then remove it
 function imgError(image){$(image).remove()}
+
+// way to reset the dubsit controls
+$('#navbar_Dubsit').click(function(){
+	resetDubsit();
+});

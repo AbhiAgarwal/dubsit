@@ -17,7 +17,7 @@ from boost.normalize import normalize
 # Mongo
 import pymongo
 from pymongo import MongoClient
- 
+
 #MONGO_URL = 'mongodb://tornado:pT3mW49P81u@widmore.mongohq.com:10010/Dubsit'
 client = MongoClient()
 
@@ -33,11 +33,11 @@ class AnalyticHandler(tornado.web.RequestHandler):
         # Get Results
         result = []
         if 'gif' in query:
-            toReturn = GIFcollection.find().sort("count").limit(7)
+            toReturn = GIFcollection.find().sort("count": -1).limit(7)
             for doc in toReturn:
                 result.append({'count': doc['count'], 'name': doc['name']})
         elif 'news' in query:
-            toReturn = NEWScollection.find().sort("count").limit(7)
+            toReturn = NEWScollection.find().sort("count": -1).limit(7)
             for doc in toReturn:
                 result.append({'count': doc['count'], 'name': doc['name']})
 
