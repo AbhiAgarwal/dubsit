@@ -14,7 +14,19 @@ $(document).ready(function() {
 
 // Capitalize the First Letter
 String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+}
+
+// Fix Tag with Spaces for URL
+
+function fixTagURL(tag){
+  return encodeURIComponent(tag.trim())
+}
+
+// Fix Tag with Spaces for DIVs
+
+function fixTagDIV(tag){
+  return tag.replace(/ /g,"_");
 }
 
 // Analytics of the Bar
@@ -22,14 +34,14 @@ String.prototype.capitalize = function() {
 // GIF Function
 function gif(tag) {
   var html_to_add = '<div id="gif_division">';
-      html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
-      html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + 'GIF: ' +  tag.capitalize() + '</div>';
-      html_to_add += '<ul class="pager" id="' + tag + '-pagination"><li><a id="' + tag + '-previous" href="#">Previous</a></li> <li><a id="' + tag + '-next" href="#">Next</a></li></ul>';
+      html_to_add += '<section id="id' + fixTagDIV(tag) + '" class="panel panel-default">';
+      html_to_add += '<div id="h2' + fixTagDIV(tag) + '" class="panel-heading">' + 'GIF: ' +  tag.capitalize() + '</div>';
+      html_to_add += '<ul class="pager" id="' + fixTagDIV(tag) + '-pagination"><li><a id="' + fixTagDIV(tag) + '-previous" href="#">Previous</a></li> <li><a id="' + fixTagDIV(tag) + '-next" href="#">Next</a></li></ul>';
       html_to_add += '<div class="panel-body">';
-      html_to_add += '<ul id="' + tag + '">';
-  $.getJSON( "api/gif/rank/" + tag + ".json", function(data) {
+      html_to_add += '<ul id="' + fixTagDIV(tag) + '">';
+  $.getJSON( "api/gif/rank/" + fixTagURL(tag) + ".json", function(data) {
     if($.isEmptyObject(data)){
-      $("#h2" + tag).html(tag + ': Nothing found');
+      $("#h2" + fixTagDIV(tag)).html(tag.capitalize() + ': Nothing found');
     }
     $.each(data, function(i, field) {
       var splitData = ((field.media_url).split(".com"))[1];
@@ -38,42 +50,42 @@ function gif(tag) {
         current_html += '<img src="' + field.media_url + '" data-src="' + field.media_url + '" alt="" width="240" height="180" onerror="imgError(this);">';
         current_html += '</a>';
         current_html += '</li>';
-        $('#' + tag).append(current_html);
-        $('#' + tag).paginate({itemsPerPage: 15});
+        $('#' + fixTagDIV(tag)).append(current_html);
+        $('#' + fixTagDIV(tag)).paginate({itemsPerPage: 15});
       }
       urlsVisited.push(splitData);
     });
   });
   html_to_add += '</ul></div></section></div>';
   $('#results').append(html_to_add);
-  $("#h2" + tag).click(function() {
-    $("#" + tag).toggle();
+  $("#h2" + fixTagDIV(tag)).click(function() {
+    $("#" + fixTagDIV(tag)).toggle();
   });
   $(document).ready(function() {
-    $('#' + tag).paginate({itemsPerPage: 15});
+    $('#' + fixTagDIV(tag)).paginate({itemsPerPage: 15});
   });
 }
 
 // News Function
 function news(tag) {
   var html_to_add = '<div id="news_division">';
-      html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
-      html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + 'News: ' + tag.capitalize() + '</div>';
+      html_to_add += '<section id="id' + fixTagDIV(tag) + '" class="panel panel-default">';
+      html_to_add += '<div id="h2' + fixTagDIV(tag) + '" class="panel-heading">' + 'News: ' + tag.capitalize() + '</div>';
       html_to_add += '<div class="panel-body">';
-      html_to_add += '<ul id="' + tag + '" class="list-group">';
-  $.getJSON( "api/news/rank/" + tag + ".json", function(data) {
+      html_to_add += '<ul id="' + fixTagDIV(tag) + '" class="list-group">';
+  $.getJSON( "api/news/rank/" + fixTagURL(tag) + ".json", function(data) {
     $.each(data, function(i, field) {
       var current_html = '<a href="' + field.url + '" class="list-group-item" target="_news">'
           current_html += '<span class="badge">14</span>';
           current_html += '<h4 class="list-group-item-heading">' + field.title + '</h4>';
           current_html += '</a>';
-      $('#' + tag).append(current_html);
+      $('#' + fixTagDIV(tag)).append(current_html);
     });
   });
   html_to_add += '</ul></div></section></div>';
   $('#results').append(html_to_add);
-  $("#h2" + tag).click(function() {
-    $("#" + tag).toggle();
+  $("#h2" + fixTagDIV(tag)).click(function() {
+    $("#" + fixTagDIV(tag)).toggle();
   });
 }
 
@@ -81,8 +93,8 @@ function news(tag) {
 function chart(tag) {
   if(tag != 'news' && tag != 'gif') {
     var html_to_add = '<div id="chart_division">';
-        html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
-        html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + tag.capitalize() + ': Not Found</div>';
+        html_to_add += '<section id="id' + fixTagDIV(tag) + '" class="panel panel-default">';
+        html_to_add += '<div id="h2' + fixTagDIV(tag) + '" class="panel-heading">' + tag.capitalize() + ': Not Found</div>';
         html_to_add += '<div class="panel-body">';
         html_to_add += '</li></ul></div></section></div>';
     $('#results').append(html_to_add);
@@ -91,15 +103,15 @@ function chart(tag) {
       var GraphLabels = [];
       var GraphData = [];
       var html_to_add = '<div id="chart_division">';
-          html_to_add += '<section id="id' + tag + '" class="panel panel-default">';
-          html_to_add += '<div id="h2' + tag + '" class="panel-heading">' + tag.capitalize() + ' Analytics</div>';
+          html_to_add += '<section id="id' + fixTagDIV(tag) + '" class="panel panel-default">';
+          html_to_add += '<div id="h2' + fixTagDIV(tag) + '" class="panel-heading">' + tag.capitalize() + ' Analytics</div>';
           html_to_add += '<div class="panel-body">';
-          html_to_add += '<ul id="' + tag + '">';
+          html_to_add += '<ul id="' + fixTagDIV(tag) + '">';
           html_to_add += '<li>';
-          html_to_add += '<canvas id="' + tag + '_analytics" width="600" height="400"></canvas>';
+          html_to_add += '<canvas id="' + fixTagDIV(tag) + '_analytics" width="600" height="400"></canvas>';
           html_to_add += '</li></ul></div></section></div>';
       $('#results').append(html_to_add);
-      $.getJSON('api/graph/' + tag + '.json', function(data) {
+      $.getJSON('api/graph/' + fixTagURL(tag) + '.json', function(data) {
         $.each(data, function(i, field){
           GraphLabels.push(field.name);
           GraphData.push(field.count);
@@ -111,7 +123,7 @@ function chart(tag) {
             strokeColor: "rgba(151,187,205,1)",
             data: GraphData
         }]}
-        var myLine = new Chart(document.getElementById(tag + '_analytics').getContext("2d")).Bar(barChartData);
+        var myLine = new Chart(document.getElementById(fixTagDIV(tag) + '_analytics').getContext("2d")).Bar(barChartData);
       });
     });
   }
@@ -120,17 +132,17 @@ function chart(tag) {
 // Welcome
 function welcome(tag) {
   var html_to_add = '<div id="welcome_division">';
-      html_to_add += '<section id="id' + tag + '">';
-      html_to_add += '<div id="h2' + tag + '"><h2>' + tag + '</h2></div>'
-      html_to_add += '<ul id=' + tag + '>'
+      html_to_add += '<section id="id' + fixTagDIV(tag) + '">';
+      html_to_add += '<div id="h2' + fixTagDIV(tag) + '"><h2>' + tag.capitalize() + '</h2></div>'
+      html_to_add += '<ul id=' + fixTagDIV(tag) + '>'
       html_to_add += '<li>heh</li>'
       html_to_add += '</ul></section></div>'
   // Adding the HTML & Checking Cache
   $('#results').append(html_to_add);
-  $("#" + tag).least();
+  $("#" + fixTagDIV(tag)).least();
   // Create instance of a toggle
-  $("#h2" + tag).click(function(){
-    $("#" + tag).toggle();
+  $("#h2" + fixTagDIV(tag)).click(function(){
+    $("#" + fixTagDIV(tag)).toggle();
   });
 }
 
@@ -271,9 +283,9 @@ function onRemoveTag(tag) {
       }
     }
     // remove the current from the div
-    $('#h2' + tag).remove();
-    $('#id' + tag).remove();
-    $('#' + tag).remove();
+    $('#h2' + fixTagDIV(tag)).remove();
+    $('#id' + fixTagDIV(tag)).remove();
+    $('#' + fixTagDIV(tag)).remove();
     // Set the URL to be the last element in the search_tag array
     if(search_tag.length != 0) {
       // if there is an element before then add it to the URL
