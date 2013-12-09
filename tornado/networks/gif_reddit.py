@@ -2,7 +2,7 @@ import json, requests, sys
 from imageModels import gif_redditModel
 
 class reddit(object):
-	
+
 	def __init__(self):
 		self.allResults = []
 		self.currentResult = []

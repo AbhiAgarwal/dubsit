@@ -1,7 +1,7 @@
 from networksRank import reddit
 
 class redditModel(object):
-	
+
 	def __init__(self, result):
 		self.id = result.get('name')
 		self.url = result.get('url')
@@ -12,6 +12,6 @@ class redditModel(object):
 
 	def getImageList(self):
 		dictionary = {}
-		dictionary['score'] = reddit.score(self.ups, self.downs, self.num_comments)
+		dictionary['score'] = reddit.GIFscore(self.ups, self.downs, self.num_comments)
 		dictionary['media_url'] = self.media_url
 		return dictionary

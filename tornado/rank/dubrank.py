@@ -37,9 +37,9 @@ class GIFRankHandler(tornado.web.RequestHandler):
     def GIFRank(self, GiphyResults, RedditResults):
         finalSource = []; # array to return
         # parse through Reddit Results
-        for i in RedditResults: finalSource.append(i)   
+        for i in RedditResults: finalSource.append(i)
         # parse through Giphy Results
-        for i in GiphyResults: finalSource.append(i)   
+        for i in GiphyResults: finalSource.append(i)
         # reset
         result = [dict(tupleized) for tupleized in set(tuple(item.items()) for item in finalSource)]
         # sort the final source before saving as JSON
@@ -60,5 +60,13 @@ class NEWSRankHandler(tornado.web.RequestHandler):
         TotalResults = self.NEWSRank(RedditResults)
         self.write(tornado.escape.json_encode(TotalResults))
 
-    def NEWSRank(self, results):
-        return results
+    def NEWSRank(self, RedditResults):
+        finalSource = []; # array to return
+        # parse through Reddit Results
+        for i in RedditResults: finalSource.append(i)
+        # reset
+        result = [dict(tupleized) for tupleized in set(tuple(item.items()) for item in finalSource)]
+        # sort the final source before saving as JSON
+        finalSource = (sorted(result, key = itemgetter('score')))[::-1]
+        # return the source to be shown
+        return finalSource

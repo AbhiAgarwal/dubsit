@@ -4,16 +4,28 @@ from math import sqrt
 # different models of rankings
 
 # traditional ups, downs, comments and logs
-def score(ups, downs, comments):
+def GIFscore(ups, downs, comments):
 	# scoring for reddit's gifs
 	s = (ups - downs) + comments
 	order = log(max(abs(s), 1), 10)
-	toReturn = (order * weights.weighing['reddit'])
+	toReturn = (order * weights.weighing['GIFreddit'])
 	# for future gifs
 	weights.weight += order
 	weights.iterations += 1
 	weights.average = (weights.weight / weights.iterations)
 	return toReturn
+
+    # traditional ups, downs, comments and logs
+def NEWSscore(ups, downs, comments):
+    # scoring for reddit's gifs
+    s = (ups - downs) + comments
+    order = log(max(abs(s), 1), 10)
+    toReturn = (order * weights.weighing['NEWSreddit'])
+    # for future gifs
+    weights.weight += order
+    weights.iterations += 1
+    weights.average = (weights.weight / weights.iterations)
+    return toReturn
 
 # wilson score interval
 # http://amix.dk/uploads/wilsons_score_interval.png

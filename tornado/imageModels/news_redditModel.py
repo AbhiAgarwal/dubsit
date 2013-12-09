@@ -1,5 +1,7 @@
+from networksRank import reddit
+
 class redditModel(object):
-	
+
 	def __init__(self, result):
 		self.id = result.get('name')
 		self.url = result.get('url')
@@ -10,11 +12,7 @@ class redditModel(object):
 
 	def getNewsList(self):
 		dictionary = {}
-		dictionary['id'] = self.id
 		dictionary['url'] = self.url
-		dictionary['num_comments'] = self.num_comments
-		dictionary['ups'] = self.ups
-		dictionary['downs'] = self.downs
+		dictionary['score'] = reddit.NEWSscore(self.ups, self.downs, self.num_comments)
 		dictionary['title'] = self.title
-		dictionary['source'] = 'reddit'
 		return dictionary

@@ -10,11 +10,11 @@ from networks import gif_reddit, gif_giphy, gif_tumblr
 import unicodedata
 
 # Whole: Raw data of all the images given by Social Network on that topic.
-# Model: Sorted data of all the images given by the different social networks 
+# Model: Sorted data of all the images given by the different social networks
 # according to our pre-defined Model.
 
 # @Desc: Handles the 'whole' and 'model' Giphy API requests
-# @Param: 2 parameters, 
+# @Param: 2 parameters,
 # Param1: either querying a model or the whole unparsed data, ie: 'Whole'
 # Param2: the actual name of the request, ie: 'Pokemon'
 # @Return: JSON from Giphy parsed either 'model' or 'whole' way.
@@ -51,4 +51,4 @@ def TumblrGIFAPI(modelOrWhole, query):
     else:
         tumblrImage = gif_tumblr.tumblr()
         tumblrImage.getImage()
-        return {}       
+        return {}
