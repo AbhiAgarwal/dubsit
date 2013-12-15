@@ -6,7 +6,7 @@ var categories = ['web', 'image', 'gif', 'news', 'chart', 'welcome']; // All cat
 // Perform analysis
 $(document).ready(function() {
   if(search.length > 1){
-    analysis(search[1]);
+    analysis(search[0]);
   }
 });
 
@@ -46,9 +46,11 @@ function gif(tag) {
     $.each(data, function(i, field) {
       var splitData = ((field.media_url).split(".com"))[1];
       if(!($.inArray(splitData, urlsVisited) != -1)) {
-        var current_html = '<li>'
+        var current_html = '<li>';
+        //current_html += '<a href="#" class="wrapper_over">';
+        //current_html += '<span class="text_over">14</span>';
         current_html += '<img src="' + field.media_url + '" data-src="' + field.media_url + '" alt="" width="240" height="180" onerror="imgError(this);">';
-        current_html += '</a>';
+        //current_html += '</a>';
         current_html += '</li>';
         $('#' + fixTagDIV(tag)).append(current_html);
         $('#' + fixTagDIV(tag)).paginate({itemsPerPage: 15});
@@ -206,16 +208,15 @@ function onAddTag(tag) {
     } else {
       // to use chart you've to place it just before the tag
       // then this function would work
-      if(search_tag[search_tag.length-1] == categories[4]){
+      if($.inArray(search_tag[search_tag.length-1], categories) != -1){
         search.push(tag);
         addSearch(tag);
         analysis(tag);
-      // special case when
-      } else if(tag == categories[5]) {
+        // Case to let GIF before news etc.
+      } else if (tag == categories[5]) {
         search_tag.push(tag);
         addType(tag);
         analysis(tag);
-
       } else {
         // push it into the category array
         search_tag.push(tag);
@@ -244,10 +245,10 @@ function resetDubsit() {
 // Remove Tag from Array
 function onRemoveTag(tag) {
   // Special Case Dealings:
-  // 1. Chart ___, ____ needs to be a category deal with all the "CATEGORIES"
-  if($.inArray(tag, categories) != -1 &&
-    // dealing with special special case 1.
-    !(search_tag[search_tag.length-1] == categories[4] && tag != 'chart')) {
+  if(($.inArray(tag, categories) != -1) &&
+  // Deals with the case where a CATEGORY is placed inside the search array after a search_tag
+  !($.inArray(tag, search) != -1)) {
+    console.log(tag);
     // set the URL to ?
     History.pushState({state: tag}, "Dubsit", "?");
     // remove the element from the array

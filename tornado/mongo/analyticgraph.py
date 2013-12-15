@@ -18,7 +18,6 @@ from boost.normalize import normalize
 import pymongo
 from pymongo import MongoClient
 
-#MONGO_URL = 'mongodb://tornado:pT3mW49P81u@widmore.mongohq.com:10010/Dubsit'
 client = MongoClient()
 
 db = client.Dubsit
