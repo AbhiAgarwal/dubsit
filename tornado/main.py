@@ -26,24 +26,16 @@ class Application(tornado.web.Application):
             (r"/api/gif/rank/(?P<param1>[^\/]+)?.json", GIFRankHandler),
             (r"/api/news/rank/(?P<param1>[^\/]+)?.json", NEWSRankHandler),
             (r"/api/graph/(?P<param1>[^\/]+)?.json", AnalyticHandler),
-            # Facebook OAuth Decleration
-            #(r"/auth/facebook", FacebookOAuth),
-            #(r"/auth/facebook/", FacebookOAuth),
-            #(r"/auth/facebook/login", FacebookAuthLoginHandler),
-            #(r"/auth/facebook/logout", FacebookAuthLogoutHandler),
-            # Twitter OAuth Decleration
-            #(r"/auth/twitter", TwitterHandler),
-            #(r"/auth/twitter/logout", TwitterLogoutHandler),
         ]
         settings = dict(
-            cookie_secret = "8SGUe0QKS/ecvBl5WSYLw36RuNPtqEenqkIlAD0BoSY=",
+            cookie_secret = "",
             template_path = os.path.join(os.path.dirname(__file__), "templates"),
             static_path = os.path.join(os.path.dirname(__file__), "static"),
             xsrf_cookies = True,
-            facebook_api_key = "1439162342963455",
-            facebook_secret = "36fbb4d5e45962b91a60f4ce3185567c",
-            twitter_consumer_key = "az3vkZWKTf4MLMCrSCuzw",
-            twitter_consumer_secret = "3dqYqjGluPJd581SWjhQh9reGfeFKS98cRUmsvwaBw",
+            facebook_api_key = "",
+            facebook_secret = "",
+            twitter_consumer_key = "",
+            twitter_consumer_secret = "",
         )
         tornado.web.Application.__init__(self, handlers, **settings)
 
